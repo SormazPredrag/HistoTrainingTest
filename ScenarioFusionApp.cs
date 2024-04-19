@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Appium.Windows;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SimulationToolTest
@@ -14,12 +16,21 @@ namespace SimulationToolTest
         [TestMethod]
         public void Maximize3D()
         {
+            var app = new ScenarioPatientOpen();
+            app.ExpandExsistingPatientList();
+
+            Thread.Sleep(TimeSpan.FromSeconds(4));
+
             WindowsElement FusionApp = sessionHTT.FindElementByName("Fusion App");
-            //LoadExsistingPatient();
+            
+            var builder = new Actions(sessionHTT);
+            builder.MoveToElement(FusionApp, 1190, 414).Click().Build().Perform();
+
+            app.ShutDownMenuClick();
+            
             //Thread.Sleep(TimeSpan.FromSeconds(2));
-            //editBox.Click();
             //Console.WriteLine("Kliknuo!");
-            //Thread.Sleep(TimeSpan.FromSeconds(1));
+
         }
 
         [ClassInitialize]
