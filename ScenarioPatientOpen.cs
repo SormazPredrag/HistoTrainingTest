@@ -28,10 +28,14 @@ namespace SimulationToolTest
     {
         private static string patientId = "02-006";
         private static string patientName = "Histosonics";
+        private string LastNameSearch = "Histosonics";
 
         [TestMethod]
         public void ExpandExsistingPatientList()
         {
+            //Search Last Name
+            sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRegistrationPage.patientRegistrationBg.patientRecordListView.patientFilteringWidget.lastNameLineEdit").SendKeys(LastNameSearch); //AutomationId: 
+
             //Double click on list
             //sessionHTT.FindElementByName("Example_1").Click(); sessionHTT.FindElementByName("Example_1").Click();
             WindowsElement example = sessionHTT.FindElementByName("02-006");
@@ -46,7 +50,6 @@ namespace SimulationToolTest
 
             LoadExsistingPatient();
         }
-
         
         public static void LoadExsistingPatient()
         {
