@@ -28,8 +28,9 @@ namespace SimulationToolTest
         }
 
         [TestMethod]
-        [DataRow("D:\\Users\\Luka\\Documents\\Predrag\\dokumenta\\Vesa Rezultati\\CT Abdomena i Male karlice\\DICOM")]
-        public void ImportDICOMFile(string filePath1)
+        //[DataRow("D:\\Users\\Luka\\Documents\\Predrag\\dokumenta\\Vesa Rezultati\\CT Abdomena i Male karlice\\DICOM", "23.04.27-19:05:56-DST-1.3.12.2.1107.5.1.4.69591")]
+        [DataRow("D:\\Users\\Luka\\Downloads\\DICOM_from_sharepoint\\CIRs_Phantom", "1")]
+        public void ImportDICOMFile(string filePath1, string studyName)
         {
             Console.WriteLine($"DICOM file path {filePath1}");
             
@@ -46,15 +47,16 @@ namespace SimulationToolTest
             WindowsElement FolderEdit = sessionHTT.FindElementByAccessibilityId("1152"); //AutomationId:
             FolderEdit.Clear();
             FolderEdit.Click();
-            FolderEdit.SendKeys(SanitizeBackslashes("D:\\Users\\Luka\\Documents\\Predrag\\dokumenta\\Vesa Rezultati\\CT Abdomena i Male karlice\\DICOM") + Keys.Enter);
+            FolderEdit.SendKeys(SanitizeBackslashes(filePath1)); //+ Keys.Enter);
             //Select Folder
             sessionHTT.FindElementByAccessibilityId("1").Click();
             Thread.Sleep(TimeSpan.FromSeconds(3));
-            WindowsElement Study = sessionHTT.FindElementByName("23.04.27-19:05:56-DST-1.3.12.2.1107.5.1.4.69591");
+            WindowsElement Study = sessionHTT.FindElementByName(studyName);
 
             /*TouchAction touchAction = new TouchAction(sessionHTT);
             touchAction.Tap(Study, 16, 16).Perform(); //40, 18
-            Thread.Sleep(TimeSpan.FromSeconds(0.5));*/
+            */
+            Thread.Sleep(TimeSpan.FromSeconds(10));
 
             //Click to select
             Actions builder = new Actions(sessionHTT);
@@ -74,11 +76,24 @@ namespace SimulationToolTest
             try
             {
                 //Continue Import Wait for data
+                Thread.Sleep(TimeSpan.FromSeconds(15));
+                sessionHTT.FindElementByName("Continue Import").Click();
+                Thread.Sleep(TimeSpan.FromSeconds(2));
+                sessionHTT.FindElementByName("Yes").Click();
+            } catch { }
+
+            try
+            {
+                //Continue Import Wait for data
+                Thread.Sleep(TimeSpan.FromSeconds(15));
+                sessionHTT.FindElementByName("Continue Import").Click();
+
+                Thread.Sleep(TimeSpan.FromSeconds(15));
+                sessionHTT.FindElementByName("Continue Import").Click();
+                Thread.Sleep(TimeSpan.FromSeconds(15));
+                sessionHTT.FindElementByName("Continue Import").Click();
+
                 Thread.Sleep(TimeSpan.FromSeconds(5));
-                sessionHTT.FindElementByName("Continue Import").Click();
-                Thread.Sleep(TimeSpan.FromSeconds(11));
-                sessionHTT.FindElementByName("Continue Import").Click();
-                Thread.Sleep(TimeSpan.FromSeconds(3));
                 sessionHTT.FindElementByName("OK").Click();
             }
             catch (Exception)
