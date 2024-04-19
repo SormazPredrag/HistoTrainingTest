@@ -4,6 +4,7 @@ using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +25,9 @@ namespace SimulationToolTest
             WindowsElement FusionApp = sessionHTT.FindElementByName("Fusion App");
             
             var builder = new Actions(sessionHTT);
-            builder.MoveToElement(FusionApp, 1190, 414).Click().Build().Perform();
+            builder.MoveToElement(FusionApp, 1190, 414).Click().Build().Perform(); // pixel offset from top left
+            builder.DragAndDropToOffset(FusionApp, 200, 100).Perform();
+            Thread.Sleep(TimeSpan.FromSeconds(4));
 
             app.ShutDownMenuClick();
             

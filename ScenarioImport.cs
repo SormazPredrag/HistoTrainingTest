@@ -60,7 +60,7 @@ namespace SimulationToolTest
 
             //Click to select
             Actions builder = new Actions(sessionHTT);
-            builder.MoveToElement(Study, 16, 16).Click().Build().Perform();
+            builder.MoveToElement(Study, 16, 16).Click().Build().Perform(); // pixel offset from top left
 
             //Study.Click();
 
