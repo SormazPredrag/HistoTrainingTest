@@ -26,8 +26,8 @@ namespace SimulationToolTest
     [TestClass]
     public class ScenarioPatientOpen : HistoTraningSession
     {
-        private string patientId = "02-006";
-        private string patientName = "Histosonics";
+        private static string patientId = "02-006";
+        private static string patientName = "Histosonics";
 
         [TestMethod]
         public void ExpandExsistingPatientList()
@@ -43,13 +43,16 @@ namespace SimulationToolTest
             WindowsElement seriesElement = sessionHTT.FindElementByName("Series");
             builder = new Actions(sessionHTT);
             builder.MoveToElement(seriesElement, -11, 30).Click().Build().Perform();
+
+            LoadExsistingPatient();
         }
 
-        [TestMethod]
-        public void LoadExsistingPatient()
+        
+        public static void LoadExsistingPatient()
         {
             sessionHTT.FindElementByName(patientId).Click();
-
+            sessionHTT.FindElementByName("Go to Patient Record").Click();
+            Thread.Sleep(TimeSpan.FromSeconds(5));
         }
 
         [TestMethod]
@@ -66,6 +69,9 @@ namespace SimulationToolTest
 
             Thread.Sleep(TimeSpan.FromSeconds(0.5));
             sessionHTT.FindElementByName("Yes").Click();
+
+            Thread.Sleep(TimeSpan.FromSeconds(0.5));
+            sessionHTT.FindElementByName("No").Click();
         }
 
         [ClassInitialize]
