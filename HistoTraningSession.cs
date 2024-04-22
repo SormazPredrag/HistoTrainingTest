@@ -129,7 +129,19 @@ namespace SimulationToolTest
         public static void CheckWindowsSize()
         {
             //Get Window size
-            sessionHTT.Manage().Window.Maximize();
+            //sessionHTT.Manage().Window.Maximize();
+            //Thread.Sleep(TimeSpan.FromSeconds(7));
+            // ovo radi svaki drugi put
+            try
+            {
+                //sessionHTT.FindElementByName("Minimise").Click();
+                sessionHTT.FindElementByName("Maximise").Click();
+                sessionHTT.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+            }
+            catch (Exception ex)
+            {
+
+            }
             var windowSize = sessionHTT.Manage().Window.Size;
             Console.WriteLine($"Win width: {windowSize.Width} height: {windowSize.Height} ");
             WinWidth = windowSize.Width;

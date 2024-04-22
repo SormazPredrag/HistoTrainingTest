@@ -58,7 +58,7 @@ namespace SimulationToolTest
 
             WindowsElement elementOko = sessionHTT.FindElementByName("VIBE DINAMICO 4 MEDIDAS 20 seg"); // Postoje 2 sa istim imenom - nadje prvi sto je oko
             builder = new Actions(sessionHTT);
-            builder.MoveToElement(elementOko, 50, 0).Click().Build().Perform(); // pixel offset from top left
+            builder.MoveToElement(elementOko, 60,20).Click().Build().Perform(); // pixel offset from top left
 
 
             //IList<WindowsElement> static trt = sessionHTT.FindElements(By.Name("VIBE DINAMICO 4 MEDIDAS 20 seg"));
