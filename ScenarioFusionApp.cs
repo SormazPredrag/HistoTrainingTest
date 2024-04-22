@@ -28,7 +28,8 @@ namespace SimulationToolTest
             WindowsElement FusionApp = sessionHTT.FindElementByName("Fusion App");
             
             var builder = new Actions(sessionHTT);
-            builder.MoveToElement(FusionApp, 1190, 414).Click().Build().Perform(); // pixel offset from top left
+            int xCoord = 1190 * WinWidth / 1680;
+            builder.MoveToElement(FusionApp, xCoord, 414).Click().Build().Perform(); // pixel offset from top left
             builder.DragAndDropToOffset(FusionApp, 200, 100).Perform();
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
@@ -43,9 +44,38 @@ namespace SimulationToolTest
 
             //Minimize 3D 
             builder = new Actions(sessionHTT);
-            builder.MoveToElement(FusionApp, 1188, 22).Click().Build().Perform(); // pixel offset from top left
+            xCoord = 1188 * WinWidth / 1680;
+            builder.MoveToElement(FusionApp, xCoord, 22).Click().Build().Perform(); // pixel offset from top left
             //builder.MoveToElement(FusionApp, 313, 193).ClickAndHold().Build().Perform();
 
+            //Study tree
+            //"MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.patientPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.studyTreeView"
+
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            //sessionHTT.FindElementByName("HSR^ABDOMEN").Click(); // Exsist 2 with same name
+            sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.patientPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.studyTreeView").Click();
+
+
+            WindowsElement elementOko = sessionHTT.FindElementByName("VIBE DINAMICO 4 MEDIDAS 20 seg"); // Postoje 2 sa istim imenom - nadje prvi sto je oko
+            builder = new Actions(sessionHTT);
+            builder.MoveToElement(elementOko, 50, 0).Click().Build().Perform(); // pixel offset from top left
+
+
+            //IList<WindowsElement> static trt = sessionHTT.FindElements(By.Name("VIBE DINAMICO 4 MEDIDAS 20 seg"));
+            Console.Write(sessionHTT.PageSource);
+
+
+
+            //Add Plan button:
+            sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.patientPage.addPlanButton").Click();
+            sessionHTT.FindElementByAccessibilityId("PlanInfoEditWidget.planLineEdit").SendKeys("Plan 1");
+            sessionHTT.FindElementByAccessibilityId("PlanInfoEditWidget.physicianLineEdit").SendKeys("Dr 1");
+            //Save Plan
+            sessionHTT.FindElementByAccessibilityId("PlanInfoEditWidget.savePlanButton").Click();
+
+            //Sidebar
+            // "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar"
+            //ResetButton: "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.viewResetButton"
 
             Thread.Sleep(TimeSpan.FromSeconds(4));
             app.ShutDownMenuClick();

@@ -26,6 +26,7 @@ using static System.Collections.Specialized.BitVector32;
 using System.Drawing;
 using System.Security.Cryptography;
 using OpenQA.Selenium.Appium.MultiTouch;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 
 namespace SimulationToolTest
 {
@@ -41,6 +42,8 @@ namespace SimulationToolTest
         protected static WindowsElement editBox;
         protected static WindowsElement ImportBtn;
         static Process WinDriverproc = new Process();
+        protected static int WinWidth;
+        private static int WinHeigth;
 
         public static void Setup(TestContext context)
         {
@@ -97,6 +100,8 @@ namespace SimulationToolTest
                 appiumOptions2.AddAdditionalCapability("appTopLevelWindow", HistoWindowId.ToString("X"));
                 sessionHTT = new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), appiumOptions2);
 
+                CheckWindowsSize();
+
                 /*
                 Thread.Sleep(TimeSpan.FromSeconds(1));
                 Assert.IsNotNull(session);
@@ -121,6 +126,19 @@ namespace SimulationToolTest
             }
         }
 
+        public static void CheckWindowsSize()
+        {
+            //Get Window size
+            sessionHTT.Manage().Window.Maximize();
+            var windowSize = sessionHTT.Manage().Window.Size;
+            Console.WriteLine($"Win width: {windowSize.Width} height: {windowSize.Height} ");
+            WinWidth = windowSize.Width;
+            WinHeigth = windowSize.Height;
+            //Assert.AreEqual(windowSize.Width, 1920);
+            //Assert.AreEqual(windowSize.Height, 1040);
+
+        }
+
         public static void TearDown()
         {
             // Close the application and delete the session
@@ -140,8 +158,8 @@ namespace SimulationToolTest
                 session = null;
             }*/
 
-            //sessionHTT.Close();
-            //sessionHTT.Quit();
+            sessionHTT.Close();
+            sessionHTT.Quit();
 
             try
             {

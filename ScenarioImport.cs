@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,7 +57,7 @@ namespace SimulationToolTest
             /*TouchAction touchAction = new TouchAction(sessionHTT);
             touchAction.Tap(Study, 16, 16).Perform(); //40, 18
             */
-            Thread.Sleep(TimeSpan.FromSeconds(10));
+            Thread.Sleep(TimeSpan.FromSeconds(17));
 
             //Click to select
             Actions builder = new Actions(sessionHTT);
@@ -66,7 +67,7 @@ namespace SimulationToolTest
 
             //DICOM Browser
             WindowsElement DICOMelement = sessionHTT.FindElementByName("DICOM Browser");
-            Thread.Sleep(TimeSpan.FromSeconds(0.5));
+            Thread.Sleep(TimeSpan.FromSeconds(1));
             //DICOMelement.FindElementByTagName("button").Click();
             Console.WriteLine(DICOMelement.Coordinates);
 
@@ -91,6 +92,8 @@ namespace SimulationToolTest
                 Thread.Sleep(TimeSpan.FromSeconds(15));
                 sessionHTT.FindElementByName("Continue Import").Click();
                 Thread.Sleep(TimeSpan.FromSeconds(15));
+                sessionHTT.FindElementByName("Continue Import").Click();
+                Thread.Sleep(TimeSpan.FromSeconds(5));
                 sessionHTT.FindElementByName("Continue Import").Click();
 
                 Thread.Sleep(TimeSpan.FromSeconds(5));

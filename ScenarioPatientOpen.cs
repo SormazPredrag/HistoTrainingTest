@@ -20,6 +20,7 @@ using System.Threading;
 using System;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
+using System.Collections.Generic;
 
 namespace SimulationToolTest
 {
@@ -27,18 +28,26 @@ namespace SimulationToolTest
     public class ScenarioPatientOpen : HistoTraningSession
     {
         private static string patientId = "02-006";
-        private static string patientName = "Histosonics";
+        private static string FirstNameSearch = "Example_1";
         private string LastNameSearch = "Histosonics";
 
         [TestMethod]
         public void ExpandExsistingPatientList()
         {
-            //Search Last Name
+            //Search Name
+            //sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRegistrationPage.patientRegistrationBg.patientRecordListView.patientFilteringWidget.firstNameLineEdit").Clear();
+            //sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRegistrationPage.patientRegistrationBg.patientRecordListView.patientFilteringWidget.firstNameLineEdit").SendKeys("Example_1");
+            //sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRegistrationPage.patientRegistrationBg.patientRecordListView.patientFilteringWidget.firstNameLineEdit").SendKeys(""); //AutomationId: 
+            Thread.Sleep(100);
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRegistrationPage.patientRegistrationBg.patientRecordListView.patientFilteringWidget.lastNameLineEdit").SendKeys(LastNameSearch); //AutomationId: 
 
             //Double click on list
             //sessionHTT.FindElementByName("Example_1").Click(); sessionHTT.FindElementByName("Example_1").Click();
             WindowsElement example = sessionHTT.FindElementByName("02-006");
+            sessionHTT.FindElementByName(FirstNameSearch);
+            sessionHTT.FindElementByName(LastNameSearch);
+            sessionHTT.FindElementByName("01 Jan 1900");
+            
             //Actions act = new Actions(session2);
             //act.DoubleClick(example).Perform();
             var builder = new Actions(sessionHTT);
