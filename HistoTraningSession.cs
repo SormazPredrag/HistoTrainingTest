@@ -90,6 +90,7 @@ namespace SimulationToolTest
                 var appiumOptions1 = new OpenQA.Selenium.Appium.AppiumOptions();
                 appiumOptions1.AddAdditionalCapability("app", "Root");
                 sessionRoot = new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), appiumOptions1);
+                Thread.Sleep(TimeSpan.FromSeconds(3));
                 var histoTT = sessionRoot.FindElementByName("Histosonics Training Tool");
                 Assert.IsNotNull(histoTT);
                 int HistoWindowId = Int32.Parse(histoTT.GetAttribute("NativeWindowHandle"));

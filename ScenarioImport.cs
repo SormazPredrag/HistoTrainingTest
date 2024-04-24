@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Appium.Mac;
 using OpenQA.Selenium.Appium.MultiTouch;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,24 +79,47 @@ namespace SimulationToolTest
             try
             {
                 //Continue Import Wait for data
+                //var myElement = sessionHTT.FindElementByName("Continue Import");
+                //new WebDriverWait(sessionHTT, TimeSpan.FromSeconds(20)).Until(d => myElement.Displayed);
+                //myElement.Click();
                 Thread.Sleep(TimeSpan.FromSeconds(15));
                 sessionHTT.FindElementByName("Continue Import").Click();
-                Thread.Sleep(TimeSpan.FromSeconds(2));
+                Thread.Sleep(TimeSpan.FromSeconds(3));
                 sessionHTT.FindElementByName("Yes").Click();
             } catch { }
 
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             try
             {
                 //Continue Import Wait for data
-                Thread.Sleep(TimeSpan.FromSeconds(15));
+                
+                var myElement1 = sessionHTT.FindElementByName("Continue Import");
+                new WebDriverWait(sessionHTT, TimeSpan.FromSeconds(30)).Until(d => myElement1.Displayed);
+                myElement1.Click();
+
+                myElement1 = sessionHTT.FindElementByName("Continue Import");
+                new WebDriverWait(sessionHTT, TimeSpan.FromSeconds(20)).Until(d => myElement1.Displayed);
+                myElement1.Click();
+
+                myElement1 = sessionHTT.FindElementByName("Continue Import");
+                new WebDriverWait(sessionHTT, TimeSpan.FromSeconds(15)).Until(d => myElement1.Displayed);
+                myElement1.Click();
+
+                myElement1 = sessionHTT.FindElementByName("Continue Import");
+                new WebDriverWait(sessionHTT, TimeSpan.FromSeconds(5)).Until(d => myElement1.Displayed);
+                myElement1.Click();
+                
+                /*
+                Thread.Sleep(TimeSpan.FromSeconds(20));
                 sessionHTT.FindElementByName("Continue Import").Click();
 
-                Thread.Sleep(TimeSpan.FromSeconds(15));
+                Thread.Sleep(TimeSpan.FromSeconds(20));
                 sessionHTT.FindElementByName("Continue Import").Click();
                 Thread.Sleep(TimeSpan.FromSeconds(15));
                 sessionHTT.FindElementByName("Continue Import").Click();
                 Thread.Sleep(TimeSpan.FromSeconds(5));
                 sessionHTT.FindElementByName("Continue Import").Click();
+                */
 
                 Thread.Sleep(TimeSpan.FromSeconds(5));
                 sessionHTT.FindElementByName("OK").Click();
@@ -108,6 +133,7 @@ namespace SimulationToolTest
             //sessionHTT.FindElementByName("No").Click();
 
             //Click to Menu
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             sessionHTT.FindElementByClassName("QToolButton").Click();
             Thread.Sleep(TimeSpan.FromSeconds(1));
 

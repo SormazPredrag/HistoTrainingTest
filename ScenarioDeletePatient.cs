@@ -32,7 +32,7 @@ namespace SimulationToolTest
             //WindowsElement phantom = sessionHTT.FindElementByName(LastNameSearch);
             phantom.Click();
 
-            WindowsElement phantomLast = sessionHTT.FindElementByName("22 Apr 2024");
+            WindowsElement phantomLast = sessionHTT.FindElementByName("24 Apr 2024");
             var builder = new Actions(sessionHTT);
             int xCoord = 126 * WinWidth / 1680;
             builder.MoveToElement(phantomLast, xCoord, 32).Click().Build().Perform();
