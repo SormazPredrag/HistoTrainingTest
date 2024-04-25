@@ -60,7 +60,7 @@ namespace SimulationToolTest
             LoadExsistingPatient();
         }
         
-        public static void LoadExsistingPatient()
+        public void LoadExsistingPatient()
         {
             sessionHTT.FindElementByName(patientId).Click();
             sessionHTT.FindElementByName("Go to Patient Record").Click();
@@ -76,7 +76,7 @@ namespace SimulationToolTest
 
             //Fusion App - Window !!Napravi posebnu app na Desktop-u
             //WindowsElement shtMeny = session1.FindElementByName("Fusion App");
-            WindowsElement shtMeny = sessionRoot.FindElementByName("Shut Down");
+            WindowsElement shtMeny = sessionRoot.FindElementByClassName("Shut Down");
             shtMeny.Click();
 
             Thread.Sleep(TimeSpan.FromSeconds(0.5));

@@ -85,6 +85,7 @@
     <Compile Include="ScenarioImport.cs" />
     <Compile Include="ScenarioPatientOpen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScenarioScreenShot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

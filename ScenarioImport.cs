@@ -74,7 +74,9 @@ namespace SimulationToolTest
             //DICOMelement.FindElementByTagName("button").Click();
             Console.WriteLine(DICOMelement.Coordinates);
 
-            DICOMelement.FindElementByName("Next").Click();
+            //DICOMelement.FindElementByName("Next").Click();
+            DICOMelement.FindElementByXPath("//Window[@Name='DICOM Browser'][@AutomationId='MainWindow.HistosonicsDicomBrowser']//Button[@Name='Next'][@AutomationId='MainWindow.HistosonicsDicomBrowser.nextButton']").Click();
+
 
             //Error 5010
             try
