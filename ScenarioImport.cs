@@ -36,9 +36,10 @@ namespace SimulationToolTest
         public void ImportDICOMFile(string filePath1, string studyName)
         {
             Console.WriteLine($"DICOM file path {filePath1}");
-            
+
             //WindowsElement importBtn = sessionHTT.FindElementByName("Import");
-            WindowsElement importBtn = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRegistrationPage.patientRegistrationBg.importButton");
+            //WindowsElement importBtn = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRegistrationPage.patientRegistrationBg.importButton");
+            WindowsElement importBtn = sessionHTT.FindElementByXPath("//Button[@Name='Import'][starts-with(@AutomationId,'MainWindow.centralwidget.stackedWidget.patientRegistrationPage.p')]");
             importBtn.Click();
             Thread.Sleep(TimeSpan.FromSeconds(1));
             //Import modal
@@ -82,17 +83,18 @@ namespace SimulationToolTest
                 //var myElement = sessionHTT.FindElementByName("Continue Import");
                 //new WebDriverWait(sessionHTT, TimeSpan.FromSeconds(20)).Until(d => myElement.Displayed);
                 //myElement.Click();
-                Thread.Sleep(TimeSpan.FromSeconds(15));
+                Thread.Sleep(TimeSpan.FromSeconds(17));
                 sessionHTT.FindElementByName("Continue Import").Click();
+
                 Thread.Sleep(TimeSpan.FromSeconds(3));
                 sessionHTT.FindElementByName("Yes").Click();
             } catch { }
 
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+            //Thread.Sleep(TimeSpan.FromSeconds(15));
             try
             {
                 //Continue Import Wait for data
-                
+                /*
                 var myElement1 = sessionHTT.FindElementByName("Continue Import");
                 new WebDriverWait(sessionHTT, TimeSpan.FromSeconds(30)).Until(d => myElement1.Displayed);
                 myElement1.Click();
@@ -108,18 +110,18 @@ namespace SimulationToolTest
                 myElement1 = sessionHTT.FindElementByName("Continue Import");
                 new WebDriverWait(sessionHTT, TimeSpan.FromSeconds(5)).Until(d => myElement1.Displayed);
                 myElement1.Click();
+                */
                 
-                /*
-                Thread.Sleep(TimeSpan.FromSeconds(20));
+                Thread.Sleep(TimeSpan.FromSeconds(17));
                 sessionHTT.FindElementByName("Continue Import").Click();
 
-                Thread.Sleep(TimeSpan.FromSeconds(20));
+                Thread.Sleep(TimeSpan.FromSeconds(17));
                 sessionHTT.FindElementByName("Continue Import").Click();
                 Thread.Sleep(TimeSpan.FromSeconds(15));
                 sessionHTT.FindElementByName("Continue Import").Click();
                 Thread.Sleep(TimeSpan.FromSeconds(5));
                 sessionHTT.FindElementByName("Continue Import").Click();
-                */
+                
 
                 Thread.Sleep(TimeSpan.FromSeconds(5));
                 sessionHTT.FindElementByName("OK").Click();
