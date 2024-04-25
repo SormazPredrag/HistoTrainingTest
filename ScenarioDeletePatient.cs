@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Support.PageObjects;
 
 namespace SimulationToolTest
 {
@@ -18,8 +19,8 @@ namespace SimulationToolTest
     {
         private string LastNameSearch = "HISTO PHANTOM 1";
 
-        [FindsBy(How = How.Name, Using = "HISTO PHANTOM 1")]
-        private WindowsElement _lastName;
+        /*[FindsBy(How = How.Name, Using = "HISTO PHANTOM 1")]
+        private WindowsElement _lastName;*/
 
 
         [TestMethod]
@@ -32,7 +33,8 @@ namespace SimulationToolTest
             //WindowsElement phantom = sessionHTT.FindElementByName(LastNameSearch);
             phantom.Click();
 
-            WindowsElement phantomLast = sessionHTT.FindElementByName("24 Apr 2024");
+            DateTime now = DateTime.Now;
+            WindowsElement phantomLast = sessionHTT.FindElementByName(now.ToString("dd MMM yyyy"));
             var builder = new Actions(sessionHTT);
             int xCoord = 126 * WinWidth / 1680;
             builder.MoveToElement(phantomLast, xCoord, 32).Click().Build().Perform();

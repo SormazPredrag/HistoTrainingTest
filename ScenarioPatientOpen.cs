@@ -76,7 +76,7 @@ namespace SimulationToolTest
 
             //Fusion App - Window !!Napravi posebnu app na Desktop-u
             //WindowsElement shtMeny = session1.FindElementByName("Fusion App");
-            WindowsElement shtMeny = sessionRoot.FindElementByClassName("Shut Down");
+            WindowsElement shtMeny = sessionRoot.FindElementByName("Shut Down");
             shtMeny.Click();
 
             Thread.Sleep(TimeSpan.FromSeconds(0.5));

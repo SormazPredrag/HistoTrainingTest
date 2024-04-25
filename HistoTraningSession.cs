@@ -155,24 +155,27 @@ namespace SimulationToolTest
         public static void TearDown()
         {
             // Close the application and delete the session
-            /*if (session != null)
+            if (true) //sessionHTT != null
             {
-                session.Close();
+                //sessionHTT.FindElementByName("Close").Click();
+                sessionHTT.Close();
+                Thread.Sleep(TimeSpan.FromSeconds(2));
 
                 try
                 {
                     // Dismiss Save dialog if it is blocking the exit
-                    session.FindElementByName("Don't Save").Click();
+                    //Ne radi ne znam zasto
+                    sessionHTT.FindElementByName("No").Click();
                 }
                 catch { }
-
+               
                 Console.WriteLine("Quit!");
-                session.Quit();
-                session = null;
-            }*/
+                sessionHTT.Quit();
+                sessionHTT = null;
+            }
 
-            sessionHTT.Close();
-            sessionHTT.Quit();
+            //sessionHTT.Close();
+            //sessionHTT.Quit();
 
             try
             {
