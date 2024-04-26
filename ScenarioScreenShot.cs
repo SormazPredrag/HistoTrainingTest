@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,9 @@ namespace SimulationToolTest
     public class ScenarioScreenShot : HistoTraningSession
     {
         private string saveFilename = "Screen-1.png";
+        private const string TargetSaveLocation = @"%USERPROFILE%\\Desktop";
+        private const string ExplorerAppId = @"C:\Windows\System32\explorer.exe";
+
         [TestMethod]
         public void ClickScreenShot()
         {
@@ -30,7 +35,7 @@ namespace SimulationToolTest
             builder1.MoveToElement(FusionApp, 34, 27).Click().Build().Perform();
 
             sessionHTT.FindElementByXPath("//Pane[@ClassName='DUIViewWndClassName']//ComboBox[@Name='File name:'][@AutomationId='FileNameControlHost']//Edit[@ClassName='Edit'][@Name='File name:']").Click();
-            sessionHTT.FindElementByXPath("//Pane[@ClassName='DUIViewWndClassName']//ComboBox[@Name='File name:'][@AutomationId='FileNameControlHost']//Edit[@ClassName='Edit'][@Name='File name:']").SendKeys(SanitizeBackslashes("%USERPROFILE%\\Desktop"));
+            sessionHTT.FindElementByXPath("//Pane[@ClassName='DUIViewWndClassName']//ComboBox[@Name='File name:'][@AutomationId='FileNameControlHost']//Edit[@ClassName='Edit'][@Name='File name:']").SendKeys(SanitizeBackslashes(TargetSaveLocation));
             sessionHTT.FindElementByXPath("//Button[@ClassName='Button'][@Name='Save']").Click();
 
             sessionHTT.FindElementByXPath("//Pane[@ClassName='DUIViewWndClassName']//ComboBox[@Name='File name:'][@AutomationId='FileNameControlHost']//Edit[@ClassName='Edit'][@Name='File name:']").SendKeys(SanitizeBackslashes(saveFilename));
@@ -42,6 +47,56 @@ namespace SimulationToolTest
             catch { }
 
             app.ShutDownMenuClick();
+        }
+
+        [TestMethod]
+        public void explorerCheck()
+        {
+            // Create a Windows Explorer session to delete the saved text file above
+            /*DesiredCapabilities appCapabilities = new DesiredCapabilities();
+            appCapabilities.SetCapability("app", ExplorerAppId);
+            appCapabilities.SetCapability("deviceName", "WindowsPC");
+            WindowsDriver<WindowsElement> windowsExplorerSession = new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), appCapabilities);
+            */
+
+            var appiumOptionsE = new OpenQA.Selenium.Appium.AppiumOptions();
+            appiumOptionsE.AddAdditionalCapability("app", ExplorerAppId);
+            appiumOptionsE.AddAdditionalCapability("deviceName", "WindowsPC");
+            WindowsDriver<WindowsElement> windowsExplorerSession = new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), appiumOptionsE);
+
+            Assert.IsNotNull(windowsExplorerSession);
+
+            // Navigate Windows Explorer to the target save location folder
+            windowsExplorerSession.Keyboard.SendKeys(Keys.Alt + "d" + Keys.Alt + SanitizeBackslashes(TargetSaveLocation) + Keys.Enter);
+
+            // Verify that the file is indeed saved in the working directory and delete it
+            windowsExplorerSession.FindElementByAccessibilityId("SearchEditBox").SendKeys(saveFilename + Keys.Enter);
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            WindowsElement testFileEntry = null;
+            try
+            {
+                testFileEntry = windowsExplorerSession.FindElementByName("Items View").FindElementByName(saveFilename) as WindowsElement;  // In case extension is added automatically
+            }
+            catch
+            {
+                try
+                {
+                    testFileEntry = windowsExplorerSession.FindElementByName("Items View").FindElementByName(saveFilename) as WindowsElement;
+                }
+                catch { }
+            }
+
+            
+            // Delete the test file when it exists
+            if (testFileEntry != null)
+            {
+                testFileEntry.Click();
+                testFileEntry.SendKeys(Keys.Delete);
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+            
+            windowsExplorerSession.Quit();
+            windowsExplorerSession = null;
         }
 
         [ClassInitialize]
