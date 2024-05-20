@@ -34,7 +34,7 @@ namespace SimulationToolTest
     {
         protected const string WindowsApplicationDriverUrl = "http://127.0.0.1:4723";
         //private const string NotepadAppId = @"C:\Windows\System32\notepad.exe";
-        private const string HistoAppId = @"D:\Program Files\ImFusion\ImFusion Suite\Suite\SimulationTool.exe";
+        private const string HistoAppId = @"C:\Program Files\ImFusion\ImFusion Suite\Suite\SimulationTool.exe";
 
         //protected static WindowsDriver<WindowsElement> session;
         protected static WindowsDriver<WindowsElement> sessionHTT;

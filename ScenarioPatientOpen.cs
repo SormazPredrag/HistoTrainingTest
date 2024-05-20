@@ -58,8 +58,29 @@ namespace SimulationToolTest
             builder.MoveToElement(seriesElement, -11, 30).Click().Build().Perform();
 
             LoadExsistingPatient();
+
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
+            // Ovo je samo imFusion element ali ne vidim elemente u njemu
+            // LeftClick on Pane "Fusion App" at (1164,696)
+            Console.WriteLine("LeftClick on Pane \"Fusion App\" at (1164,696)");
+            string xpath_LeftClickPaneFusionApp_1164_696 = "//Pane[@ClassName='Qt51515QWindowOwnDCIcon'][@Name='Fusion App']";
+            var winElem_LeftClickPaneFusionApp_1164_696 = sessionHTT.FindElementByXPath(xpath_LeftClickPaneFusionApp_1164_696);
+            if (winElem_LeftClickPaneFusionApp_1164_696 != null)
+            {
+                //winElem_LeftClickPaneFusionApp_1164_696.Click();
+                var builder1 = new Actions(sessionHTT);
+                builder1.MoveToElement(winElem_LeftClickPaneFusionApp_1164_696, 1355, 395).Click().Build().Perform();
+                Console.WriteLine(winElem_LeftClickPaneFusionApp_1164_696.Rect.ToString());
+            }
+            else
+            {
+                Console.WriteLine($"Failed to find element using xpath: {xpath_LeftClickPaneFusionApp_1164_696}");
+                return;
+            }
+
         }
-        
+
         public void LoadExsistingPatient()
         {
             sessionHTT.FindElementByName(patientId).Click();

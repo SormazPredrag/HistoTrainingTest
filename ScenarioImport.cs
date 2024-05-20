@@ -32,7 +32,7 @@ namespace SimulationToolTest
 
         [TestMethod]
         //[DataRow("D:\\Users\\Luka\\Documents\\Predrag\\dokumenta\\Vesa Rezultati\\CT Abdomena i Male karlice\\DICOM", "23.04.27-19:05:56-DST-1.3.12.2.1107.5.1.4.69591")]
-        [DataRow("D:\\Users\\Luka\\Downloads\\DICOM_from_sharepoint\\CIRs_Phantom", "1")]
+        [DataRow("D:\\Users\\Luka\\Downloads\\DICOM_from_sharepoint\\CIRs_Phantom\\Phantom1", "1")]
         public void ImportDICOMFile(string filePath1, string studyName)
         {
             Console.WriteLine($"DICOM file path {filePath1}");
@@ -72,11 +72,12 @@ namespace SimulationToolTest
             WindowsElement DICOMelement = sessionHTT.FindElementByName("DICOM Browser");
             Thread.Sleep(TimeSpan.FromSeconds(1));
             //DICOMelement.FindElementByTagName("button").Click();
-            Console.WriteLine(DICOMelement.Coordinates);
+            Console.WriteLine($"Coordinate DICOM: X={DICOMelement.Location.X} Y ={DICOMelement.Location.Y}");
+            Console.WriteLine($"DICOM Element: Location={DICOMelement.Location.ToString()} Size ={DICOMelement.Size.ToString()}");
 
             //DICOMelement.FindElementByName("Next").Click();
             DICOMelement.FindElementByXPath("//Window[@Name='DICOM Browser'][@AutomationId='MainWindow.HistosonicsDicomBrowser']//Button[@Name='Next'][@AutomationId='MainWindow.HistosonicsDicomBrowser.nextButton']").Click();
-
+            Console.WriteLine($"Click on Next.");
 
             //Error 5010
             try

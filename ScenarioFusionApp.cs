@@ -6,6 +6,7 @@ using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -17,6 +18,7 @@ namespace SimulationToolTest
     [TestClass]
     public class ScenarioFusionApp : HistoTraningSession
     {
+
         [TestMethod]
         public void Maximize3D()
         {
@@ -41,6 +43,12 @@ namespace SimulationToolTest
             Console.WriteLine("Sim result: " + similarityResult);
             */
             screenshot.SaveAsFile("D:\\testHistoScreenshot.png");
+            
+            //var screenshot1 = FusionApp.GetScreenshot();
+            //screenshot1.SaveAsFile("D:\\fusionAppScreenshot.png");
+
+            //var img = screenshot.AsByteArray.Clone();//new Rectangle(FusionApp.Location, FusionApp.Size), img.PixelFormat);
+            //img.Save("D:\\1test.png", System.Drawing.Imaging.ImageFormat.Png);
 
             //Minimize 3D 
             builder = new Actions(sessionHTT);
@@ -63,6 +71,7 @@ namespace SimulationToolTest
 
             //IList<WindowsElement> static trt = sessionHTT.FindElements(By.Name("VIBE DINAMICO 4 MEDIDAS 20 seg"));
             Console.Write(sessionHTT.PageSource);
+            File.WriteAllText("D:\\pageSource.xml", sessionHTT.PageSource);
 
 
 
