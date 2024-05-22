@@ -29,11 +29,24 @@ namespace SimulationToolTest
 
             //app.LoadExsistingPatient();
 
+
+            //Add Target button
+            //Button[@Name=\"Add Target\"][@AutomationId=\"PlanWidget.frame.planBodyWidget.addTargetButton\"]"
+            sessionHTT.FindElementByAccessibilityId("PlanWidget.frame.planBodyWidget.addTargetButton").Click();
+            WindowsElement FusionApp = sessionHTT.FindElementByName("Fusion App");
+            //"/Pane[@ClassName=\"#32769\"][@Name=\"Desktop 1\"]/Window[@Name=\"Histosonics Training Tool\"][@AutomationId=\"MainWindow\"]/Window[@ClassName=\"QDialog\"][@Name=\"Fusion App\"]/Group[@AutomationId=\"TargetInfoEditWidget\"]/Edit[@AutomationId=\"TargetInfoEditWidget.nameEdit\"]"
+            WindowsElement targetNameEdit = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.nameEdit") as WindowsElement;
+            targetNameEdit.Click();
+            targetNameEdit.Clear();
+            targetNameEdit.SendKeys("New Target");
+            //WindowsElement startTarget = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.saveButton") as WindowsElement;
+            WindowsElement startTarget = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.startButton") as WindowsElement;
+            startTarget.Click();
+
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.ellipsisButton").Click();
 
-
             //Click Screen Shot
-            WindowsElement FusionApp = sessionRoot.FindElementByXPath("//Window[@ClassName='QMenu'][@Name='Fusion App']//MenuItem[@ClassName='QWidgetAction']");
+            FusionApp = sessionRoot.FindElementByXPath("//Window[@ClassName='QMenu'][@Name='Fusion App']//MenuItem[@ClassName='QWidgetAction']");
             var builder1 = new Actions(sessionRoot);
             builder1.MoveToElement(FusionApp, 34, 27).Click().Build().Perform();
 
@@ -42,7 +55,8 @@ namespace SimulationToolTest
             sessionHTT.FindElementByXPath("//Button[@ClassName='Button'][@Name='Save']").Click();
 
             sessionHTT.FindElementByXPath("//Pane[@ClassName='DUIViewWndClassName']//ComboBox[@Name='File name:'][@AutomationId='FileNameControlHost']//Edit[@ClassName='Edit'][@Name='File name:']").SendKeys(SanitizeBackslashes(saveFilename));
-            sessionHTT.FindElementByXPath("//Button[@ClassName='Button'][@Name='Save']").Click();
+            //sessionHTT.FindElementByXPath("//Button[@ClassName='Button'][@Name='Save']").Click();
+            sessionHTT.FindElementByXPath("//Button[@ClassName='Button'][@Name='Cancel']").Click();
 
             try {
                 sessionHTT.FindElementByXPath("//Button[@Name='Yes'][starts-with(@AutomationId,'CommandButton_')]").Click();
@@ -88,7 +102,6 @@ namespace SimulationToolTest
                 }
                 catch { }
             }
-
             
             // Delete the test file when it exists
             if (testFileEntry != null)
@@ -100,6 +113,8 @@ namespace SimulationToolTest
             
             windowsExplorerSession.Quit();
             windowsExplorerSession = null;
+
+            Assert.IsNotNull(testFileEntry);
         }
 
         [ClassInitialize]
