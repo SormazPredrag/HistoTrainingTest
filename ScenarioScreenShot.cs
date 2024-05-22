@@ -55,8 +55,8 @@ namespace SimulationToolTest
             sessionHTT.FindElementByXPath("//Button[@ClassName='Button'][@Name='Save']").Click();
 
             sessionHTT.FindElementByXPath("//Pane[@ClassName='DUIViewWndClassName']//ComboBox[@Name='File name:'][@AutomationId='FileNameControlHost']//Edit[@ClassName='Edit'][@Name='File name:']").SendKeys(SanitizeBackslashes(saveFilename));
-            //sessionHTT.FindElementByXPath("//Button[@ClassName='Button'][@Name='Save']").Click();
-            sessionHTT.FindElementByXPath("//Button[@ClassName='Button'][@Name='Cancel']").Click();
+            sessionHTT.FindElementByXPath("//Button[@ClassName='Button'][@Name='Save']").Click();
+            //sessionHTT.FindElementByXPath("//Button[@ClassName='Button'][@Name='Cancel']").Click();
 
             try {
                 sessionHTT.FindElementByXPath("//Button[@Name='Yes'][starts-with(@AutomationId,'CommandButton_')]").Click();
