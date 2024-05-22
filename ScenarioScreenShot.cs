@@ -16,18 +16,21 @@ namespace SimulationToolTest
     public class ScenarioScreenShot : HistoTraningSession
     {
         private string saveFilename = "Screen-1.png";
-        private const string TargetSaveLocation = @"%USERPROFILE%\\Desktop";
+        private const string TargetSaveLocation = @"%USERPROFILE%\Desktop";
         private const string ExplorerAppId = @"C:\Windows\System32\explorer.exe";
 
         [TestMethod]
         public void ClickScreenShot()
         {
             var app = new ScenarioPatientOpen();
-            //app.ExpandExsistingPatientList();
+            
+            app.ExpandExsistingPatientList();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
 
-            app.LoadExsistingPatient();
+            //app.LoadExsistingPatient();
 
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.ellipsisButton").Click();
+
 
             //Click Screen Shot
             WindowsElement FusionApp = sessionRoot.FindElementByXPath("//Window[@ClassName='QMenu'][@Name='Fusion App']//MenuItem[@ClassName='QWidgetAction']");
