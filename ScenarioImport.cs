@@ -31,9 +31,10 @@ namespace SimulationToolTest
         }
 
         [TestMethod]
-        //[DataRow("D:\\Users\\Luka\\Documents\\Predrag\\dokumenta\\Vesa Rezultati\\CT Abdomena i Male karlice\\DICOM", "23.04.27-19:05:56-DST-1.3.12.2.1107.5.1.4.69591")]
-        [DataRow("D:\\Users\\Luka\\Downloads\\DICOM_from_sharepoint\\CIRs_Phantom\\Phantom1", "1")]
-        public void ImportDICOMFile(string filePath1, string studyName)
+        //[DataRow("D:\\Users\\Luka\\Documents\\Predrag\\dokumenta\\Vesa Rezultati\\CT Abdomena i Male karlice\\DICOM", "23.04.27-19:05:56-DST-1.3.12.2.1107.5.1.4.69591", 15)]
+        //[DataRow("D:\\Users\\Luka\\Downloads\\DICOM_from_sharepoint\\CIRs_Phantom\\Phantom1", "1", 17)]
+        [DataRow("D:\\Users\\Luka\\Downloads\\DICOM_from_sharepoint\\Simulation_Example_Patients\\V201", "01012000V201", 5)]
+        public void ImportDICOMFile(string filePath1, string studyName, int browserPause)
         {
             Console.WriteLine($"DICOM file path {filePath1}");
 
@@ -60,7 +61,7 @@ namespace SimulationToolTest
             /*TouchAction touchAction = new TouchAction(sessionHTT);
             touchAction.Tap(Study, 16, 16).Perform(); //40, 18
             */
-            Thread.Sleep(TimeSpan.FromSeconds(17));
+            Thread.Sleep(TimeSpan.FromSeconds(browserPause));
 
             //Click to select
             Actions builder = new Actions(sessionHTT);
@@ -138,11 +139,14 @@ namespace SimulationToolTest
             //sessionHTT.FindElementByName("No").Click();
 
             //Click to Menu
+            /*Not need in v3.8.1
             Thread.Sleep(TimeSpan.FromSeconds(2));
             sessionHTT.FindElementByClassName("QToolButton").Click();
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
             sessionRoot.FindElementByName("Back to Patient Registration").Click();
+            */
+
             /*
             //Fusion App - Window !!Napravi posebnu app na Desktop-u
             //WindowsElement shtMeny = session1.FindElementByName("Fusion App");
@@ -153,8 +157,9 @@ namespace SimulationToolTest
             sessionHTT.FindElementByName("Yes").Click();
             */
 
-            Thread.Sleep(TimeSpan.FromSeconds(0.5));
-            sessionHTT.FindElementByName("No").Click();
+            //Save import
+            //Thread.Sleep(TimeSpan.FromSeconds(0.5));
+            //sessionHTT.FindElementByName("No").Click();
         }
 
         [TestMethod]

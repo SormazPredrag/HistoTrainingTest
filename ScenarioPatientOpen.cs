@@ -27,9 +27,13 @@ namespace SimulationToolTest
     [TestClass]
     public class ScenarioPatientOpen : HistoTraningSession
     {
-        private static string patientId = "02-006";
-        private static string FirstNameSearch = "Example_1";
-        private string LastNameSearch = "Histosonics";
+        //private static string patientId = "02-006";
+        //private static string FirstNameSearch = "Example_1";
+        //private string LastNameSearch = "Histosonics";
+        
+        private static string patientId = "01012000V201";
+        private static string FirstNameSearch = "";
+        private string LastNameSearch = "V201";
 
         [TestMethod]
         public void ExpandExsistingPatientList()
@@ -43,19 +47,25 @@ namespace SimulationToolTest
 
             //Double click on list
             //sessionHTT.FindElementByName("Example_1").Click(); sessionHTT.FindElementByName("Example_1").Click();
-            WindowsElement example = sessionHTT.FindElementByName("02-006");
-            sessionHTT.FindElementByName(FirstNameSearch);
+            WindowsElement example = sessionHTT.FindElementByName(patientId);
+            //sessionHTT.FindElementByName(FirstNameSearch);
             sessionHTT.FindElementByName(LastNameSearch);
-            sessionHTT.FindElementByName("01 Jan 1900");
+            //Today imported files
+            DateTime now = DateTime.Now;
+            sessionHTT.FindElementByName(now.ToString("dd MMM yyyy"));
             
+            //Expand patient
             //Actions act = new Actions(session2);
             //act.DoubleClick(example).Perform();
             var builder = new Actions(sessionHTT);
             builder.MoveToElement(example, -11, 30).Click().Build().Perform();
 
+            //Series click
             WindowsElement seriesElement = sessionHTT.FindElementByName("Series");
             builder = new Actions(sessionHTT);
             builder.MoveToElement(seriesElement, -11, 30).Click().Build().Perform();
+
+            sessionHTT.FindElementByName("01012000V201 - Series 5001 : axial T1 vibe_rad outPh B1-Ps 1,2mm").Click();
 
             LoadExsistingPatient();
 
@@ -83,9 +93,15 @@ namespace SimulationToolTest
 
         public void LoadExsistingPatient()
         {
-            sessionHTT.FindElementByName(patientId).Click();
-            sessionHTT.FindElementByName("Go to Patient Record").Click();
+            //Old version v3.7.9
+            //sessionHTT.FindElementByName(patientId).Click();
+            //sessionHTT.FindElementByName("Go to Patient Record").Click();
+            sessionHTT.FindElementByName("Start Planning Session").Click();
+
+            sessionHTT.FindElementByName("Launch Planning Session").Click();
+            
             Thread.Sleep(TimeSpan.FromSeconds(5));
+
         }
 
         [TestMethod]
@@ -96,8 +112,8 @@ namespace SimulationToolTest
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
             //Fusion App - Window !!Napravi posebnu app na Desktop-u
-            //WindowsElement shtMeny = session1.FindElementByName("Fusion App");
-            WindowsElement shtMeny = sessionRoot.FindElementByName("Shut Down");
+            WindowsElement FusionApp = sessionRoot.FindElementByName("Fusion App");
+            WindowsElement shtMeny = FusionApp.FindElementByName("Shut Down") as WindowsElement;
             shtMeny.Click();
 
             Thread.Sleep(TimeSpan.FromSeconds(0.5));

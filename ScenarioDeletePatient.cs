@@ -17,7 +17,8 @@ namespace SimulationToolTest
     [TestClass]
     public class ScenarioDeletePatient : HistoTraningSession 
     {
-        private string LastNameSearch = "HISTO PHANTOM 1";
+        //private string LastNameSearch = "HISTO PHANTOM 1";
+        private string LastNameSearch = "V201";
 
         /*[FindsBy(How = How.Name, Using = "HISTO PHANTOM 1")]
         private WindowsElement _lastName;*/

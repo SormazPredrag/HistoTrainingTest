@@ -64,9 +64,10 @@ namespace SimulationToolTest
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.patientPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.studyTreeView").Click();
 
 
-            WindowsElement elementOko = sessionHTT.FindElementByName("VIBE DINAMICO 4 MEDIDAS 20 seg"); // Postoje 2 sa istim imenom - nadje prvi sto je oko
-            builder = new Actions(sessionHTT);
-            builder.MoveToElement(elementOko, 60,20).Click().Build().Perform(); // pixel offset from top left
+            //OLD version v3.7.9
+            //WindowsElement elementOko = sessionHTT.FindElementByName("VIBE DINAMICO 4 MEDIDAS 20 seg"); // Postoje 2 sa istim imenom - nadje prvi sto je oko
+            //builder = new Actions(sessionHTT);
+            //builder.MoveToElement(elementOko, 60,20).Click().Build().Perform(); // pixel offset from top left
 
 
             //IList<WindowsElement> static trt = sessionHTT.FindElements(By.Name("VIBE DINAMICO 4 MEDIDAS 20 seg"));
@@ -74,13 +75,14 @@ namespace SimulationToolTest
             File.WriteAllText("D:\\pageSource.xml", sessionHTT.PageSource);
 
 
-
+            /*
             //Add Plan button:
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.patientPage.addPlanButton").Click();
             sessionHTT.FindElementByAccessibilityId("PlanInfoEditWidget.planLineEdit").SendKeys("Plan 1");
             sessionHTT.FindElementByAccessibilityId("PlanInfoEditWidget.physicianLineEdit").SendKeys("Dr 1");
             //Save Plan
             sessionHTT.FindElementByAccessibilityId("PlanInfoEditWidget.savePlanButton").Click();
+            */
 
             //Sidebar
             // "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar"
