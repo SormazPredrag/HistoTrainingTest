@@ -110,6 +110,7 @@ namespace SimulationToolTest
             for (int i = 0; i < winElem_LeftClickCheckBox_14_11.Count; i++)
             {
                 if (i == 0) {
+                    //Ovo sam deaktivirao jer kod mene cesto pukne program
                     //winElem_LeftClickCheckBox_14_11[i].Click();
                 }
             }
