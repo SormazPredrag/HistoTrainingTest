@@ -143,6 +143,8 @@ namespace SimulationToolTest
             {
 
             }
+
+            //Verify Display Resolution is set to 1920x1200
             var windowSize = sessionHTT.Manage().Window.Size;
             Console.WriteLine($"Win width: {windowSize.Width} height: {windowSize.Height} ");
             WinWidth = windowSize.Width;
