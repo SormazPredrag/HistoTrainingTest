@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Appium.ImageComparison;
 using System.Threading;
 using System.Drawing;
 using System.IO;
@@ -31,6 +32,10 @@ namespace SimulationToolTest
             //Button[@Name=\"Add Target\"][@AutomationId=\"PlanWidget.frame.planBodyWidget.addTargetButton\"]"
             sessionHTT.FindElementByAccessibilityId("PlanWidget.frame.planBodyWidget.addTargetButton").Click();
             WindowsElement FusionApp = sessionHTT.FindElementByName("Fusion App");
+            //Console.WriteLine("Saving element to D:\\Fusion_App.png");
+            //var screenshot1 = FusionApp.GetScreenshot();
+            //screenshot1.SaveAsFile("D:\\Fusion_App.png");
+
             //"/Pane[@ClassName=\"#32769\"][@Name=\"Desktop 1\"]/Window[@Name=\"Histosonics Training Tool\"][@AutomationId=\"MainWindow\"]/Window[@ClassName=\"QDialog\"][@Name=\"Fusion App\"]/Group[@AutomationId=\"TargetInfoEditWidget\"]/Edit[@AutomationId=\"TargetInfoEditWidget.nameEdit\"]"
             WindowsElement targetNameEdit = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.nameEdit") as WindowsElement;
             targetNameEdit.Click();
@@ -61,9 +66,9 @@ namespace SimulationToolTest
             var builder2 = new Actions(sessionHTT);
             builder2.MoveToElement(PlanPoint, 52, 15).Click().Build().Perform(); // pixel offset from top left
             Thread.Sleep(TimeSpan.FromSeconds(1));
-            Console.WriteLine("Saving element to D:\\Plan_Point.png");
-            var screenshot = PlanPoint.GetScreenshot();
-            screenshot.SaveAsFile("D:\\Plan_Point.png");
+            //Console.WriteLine("Saving element to D:\\Plan_Point.png");
+            //var screenshot = PlanPoint.GetScreenshot();
+            //screenshot.SaveAsFile("D:\\Plan_Point.png");
 
             //Y-
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.widget.comboBoxSetFocus").Click();
@@ -84,6 +89,17 @@ namespace SimulationToolTest
             FusionApp = sessionRoot.FindElementByName("Fusion App");
             WindowsElement shtMeny = FusionApp.FindElementByName("Save") as WindowsElement;
             shtMeny.Click();
+
+
+            // Take a screenshot
+            Screenshot screenshot = sessionHTT.GetScreenshot();
+            /*
+            var options = new SimilarityMatchingOptions { Visualize = true };
+            var similarityResult = sessionHTT.GetImagesSimilarity(screenshot.AsBase64EncodedString, screenshot.AsBase64EncodedString, options);
+            Console.WriteLine("Sim result: " + similarityResult);
+            */
+            screenshot.SaveAsFile("D:\\testHistoScreenshot_1.png");
+
 
             //Sidebar
             // "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar"

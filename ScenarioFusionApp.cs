@@ -30,7 +30,7 @@ namespace SimulationToolTest
             Thread.Sleep(TimeSpan.FromSeconds(4));
 
             WindowsElement FusionApp = sessionHTT.FindElementByName("Fusion App");
-            
+
             var builder = new Actions(sessionHTT);
             int xCoord = 1190 * WinWidth / 1680;
             builder.MoveToElement(FusionApp, xCoord, 414).Click().Build().Perform(); // pixel offset from top left
@@ -46,8 +46,6 @@ namespace SimulationToolTest
             */
             screenshot.SaveAsFile("D:\\testHistoScreenshot.png");
             
-            //var screenshot1 = FusionApp.GetScreenshot();
-            //screenshot1.SaveAsFile("D:\\fusionAppScreenshot.png");
 
             //var img = screenshot.AsByteArray.Clone();//new Rectangle(FusionApp.Location, FusionApp.Size), img.PixelFormat);
             //img.Save("D:\\1test.png", System.Drawing.Imaging.ImageFormat.Png);
