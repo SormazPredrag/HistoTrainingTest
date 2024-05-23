@@ -20,6 +20,8 @@ namespace SimulationToolTest
     public class ScenarioFusionApp : HistoTraningSession
     {
         private string targetName = "New Target";
+        private string pageSourceFile = "D:\\pageSource.xml";
+        private string screenFileName = "D:\\testHistoScreenshot.png";
 
         [TestMethod]
         public void Maximize3D()
@@ -44,7 +46,7 @@ namespace SimulationToolTest
             var similarityResult = sessionHTT.GetImagesSimilarity(screenshot.AsBase64EncodedString, screenshot.AsBase64EncodedString, options);
             Console.WriteLine("Sim result: " + similarityResult);
             */
-            screenshot.SaveAsFile("D:\\testHistoScreenshot.png");
+            screenshot.SaveAsFile(screenFileName);
             
 
             //var img = screenshot.AsByteArray.Clone();//new Rectangle(FusionApp.Location, FusionApp.Size), img.PixelFormat);
@@ -72,7 +74,7 @@ namespace SimulationToolTest
 
             //IList<WindowsElement> static trt = sessionHTT.FindElements(By.Name("VIBE DINAMICO 4 MEDIDAS 20 seg"));
             Console.Write(sessionHTT.PageSource);
-            File.WriteAllText("D:\\pageSource.xml", sessionHTT.PageSource);
+            File.WriteAllText(pageSourceFile, sessionHTT.PageSource);
 
 
             /*
