@@ -8,6 +8,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
 using System.Threading;
+using System.Drawing;
+using System.IO;
 
 namespace SimulationToolTest
 {
@@ -40,24 +42,37 @@ namespace SimulationToolTest
 
             //WindowsElement Lateral = sessionHTT.FindElementByName("Treatment Head Angles");
             WindowsElement Lateral = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxAngles.horizontalSliderAngleZ");
-            var builder1 = new Actions(sessionHTT);
+            var builder = new Actions(sessionHTT);
             int xCoord = Lateral.Size.Width / 2;
             int yCord = Lateral.Size.Height / 2;
-            builder1.MoveToElement(Lateral, xCoord, yCord).Click().Build().Perform(); // pixel offset from top left
-            builder1.DragAndDropToOffset(Lateral, 30, 0).Perform();
+            builder.MoveToElement(Lateral, xCoord, yCord).Click().Build().Perform(); // pixel offset from top left
+            builder.DragAndDropToOffset(Lateral, 30, 0).Perform();
+
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
             WindowsElement CranioCaudal = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxAngles.horizontalSliderAngleX");
-            var builder2 = new Actions(sessionHTT);
-            //builder2.MoveToElement(CranioCaudal, xCoord, yCord).Click().Build().Perform(); // pixel offset from top left
-            builder2.DragAndDropToOffset(CranioCaudal, -40, 0).Perform();
+            var builder1 = new Actions(sessionHTT);
+            //builder1.MoveToElement(CranioCaudal, xCoord, yCord).Click().Build().Perform(); // pixel offset from top left
+            builder1.DragAndDropToOffset(CranioCaudal, -40, 0).Perform();
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
             //Z-
             WindowsElement PlanPoint = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.sevenPointWidget");
-            var builder3 = new Actions(sessionHTT);
-            builder3.MoveToElement(PlanPoint, 52, 15).Click().Build().Perform(); // pixel offset from top left
+            var builder2 = new Actions(sessionHTT);
+            builder2.MoveToElement(PlanPoint, 52, 15).Click().Build().Perform(); // pixel offset from top left
             Thread.Sleep(TimeSpan.FromSeconds(1));
+            Console.WriteLine("Saving element to D:\\Plan_Point.png");
+            var screenshot = PlanPoint.GetScreenshot();
+            screenshot.SaveAsFile("D:\\Plan_Point.png");
+
+            //Y-
+            sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.widget.comboBoxSetFocus").Click();
+            sessionHTT.FindElementByName("Y-").Click();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
+            //Y+
+            sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.widget.comboBoxSetFocus").Click();
+            sessionHTT.FindElementByName("Y+").Click();
 
             sessionHTT.FindElementByName("Accept Planned Target(s)").Click();
 

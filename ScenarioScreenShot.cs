@@ -6,6 +6,7 @@ using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -80,7 +81,7 @@ namespace SimulationToolTest
             appiumOptionsE.AddAdditionalCapability("app", ExplorerAppId);
             appiumOptionsE.AddAdditionalCapability("deviceName", "WindowsPC");
             WindowsDriver<WindowsElement> windowsExplorerSession = new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), appiumOptionsE);
-
+            Thread.Sleep(500);
             Assert.IsNotNull(windowsExplorerSession);
 
             // Navigate Windows Explorer to the target save location folder
