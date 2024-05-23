@@ -103,36 +103,17 @@ namespace SimulationToolTest
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.planningSessionSetupPage.PhysicianLineEdit").SendKeys("can be empty");
             //SendKeys have problem with uppercase!!!
 
-            /*
-            // LeftClick on CheckBox "" at (14,11)
-            Console.WriteLine("LeftClick on CheckBox at (14,11)");
+            //Liver Checkbox
+            //Checkboxes with same xpath
             string xpath_LeftClickCheckBox_14_11 = "//Window[@Name=\"Histosonics Training Tool\"][@AutomationId=\"MainWindow\"]/Group[@AutomationId=\"MainWindow.centralwidget\"]/Custom[@AutomationId=\"MainWindow.centralwidget.stackedWidget\"]/Group[@AutomationId=\"MainWindow.centralwidget.stackedWidget.planningSessionSetupPage\"]/Group[@ClassName=\"QWidget\"]/CheckBox[@ClassName=\"QCheckBox\"]";
-            var winElem_LeftClickCheckBox_14_11 = sessionHTT.FindElementByXPath(xpath_LeftClickCheckBox_14_11);
-            if (winElem_LeftClickCheckBox_14_11 != null)
+            var winElem_LeftClickCheckBox_14_11 = sessionHTT.FindElementsByXPath(xpath_LeftClickCheckBox_14_11);
+            for (int i = 0; i < winElem_LeftClickCheckBox_14_11.Count; i++)
             {
-                winElem_LeftClickCheckBox_14_11.Click();
+                if (i == 0) {
+                    //winElem_LeftClickCheckBox_14_11[i].Click();
+                }
             }
-            else
-            {
-                Console.WriteLine($"Failed to find element using xpath: {xpath_LeftClickCheckBox_14_11}");
-                //return;
-            }
-
-            // LeftClick on CheckBox "" at (14,7)
-            Console.WriteLine("LeftClick on CheckBox at (14,7)");
-            string xpath_LeftClickCheckBox_14_7 = "//Window[@Name=\"Histosonics Training Tool\"][@AutomationId=\"MainWindow\"]/Group[@AutomationId=\"MainWindow.centralwidget\"]/Custom[@AutomationId=\"MainWindow.centralwidget.stackedWidget\"]/Group[@AutomationId=\"MainWindow.centralwidget.stackedWidget.planningSessionSetupPage\"]/Group[@ClassName=\"QWidget\"]/CheckBox[@ClassName=\"QCheckBox\"]";
-            var winElem_LeftClickCheckBox_14_7 = sessionHTT.FindElementByXPath(xpath_LeftClickCheckBox_14_7);
-            if (winElem_LeftClickCheckBox_14_7 != null)
-            {
-                winElem_LeftClickCheckBox_14_7.Click();
-            }
-            else
-            {
-                Console.WriteLine($"Failed to find element using xpath: {xpath_LeftClickCheckBox_14_7}");
-                //return;
-            }*/
-
-
+            
             sessionHTT.FindElementByName("Launch Planning Session").Click();
             
             Thread.Sleep(TimeSpan.FromSeconds(5));
