@@ -64,7 +64,7 @@ namespace SimulationToolTest
             WindowsElement DeviceRoll = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxAngles.horizontalSliderAngleY");
             var builder2 = new Actions(sessionHTT);
             //builder2.MoveToElement(CranioCaudal, xCoord, yCord).Click().Build().Perform(); // pixel offset from top left
-            builder2.DragAndDropToOffset(ReviceRoll, 5, 0).Perform();
+            builder2.DragAndDropToOffset(DeviceRoll, 5, 0).Perform();
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
             //Z-
