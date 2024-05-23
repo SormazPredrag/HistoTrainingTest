@@ -61,10 +61,16 @@ namespace SimulationToolTest
             builder1.DragAndDropToOffset(CranioCaudal, -40, 0).Perform();
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
+            WindowsElement DeviceRoll = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxAngles.horizontalSliderAngleY");
+            var builder2 = new Actions(sessionHTT);
+            //builder2.MoveToElement(CranioCaudal, xCoord, yCord).Click().Build().Perform(); // pixel offset from top left
+            builder2.DragAndDropToOffset(ReviceRoll, 5, 0).Perform();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
             //Z-
             WindowsElement PlanPoint = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.sevenPointWidget");
-            var builder2 = new Actions(sessionHTT);
-            builder2.MoveToElement(PlanPoint, 52, 15).Click().Build().Perform(); // pixel offset from top left
+            var builder3 = new Actions(sessionHTT);
+            builder3.MoveToElement(PlanPoint, 52, 15).Click().Build().Perform(); // pixel offset from top left
             Thread.Sleep(TimeSpan.FromSeconds(1));
             //Console.WriteLine("Saving element to D:\\Plan_Point.png");
             //var screenshot = PlanPoint.GetScreenshot();
@@ -78,6 +84,12 @@ namespace SimulationToolTest
             //Y+
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.widget.comboBoxSetFocus").Click();
             sessionHTT.FindElementByName("Y+").Click();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            
+            //Center
+            sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.widget.comboBoxSetFocus").Click();
+            sessionHTT.FindElementByName("Center").Click();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
 
             sessionHTT.FindElementByName("Accept Planned Target(s)").Click();
 
