@@ -43,7 +43,7 @@ namespace SimulationToolTest
         protected static WindowsElement ImportBtn;
         static Process WinDriverproc = new Process();
         protected static int WinWidth;
-        private static int WinHeigth;
+        protected static int WinHeigth;
 
         public static void Setup(TestContext context)
         {

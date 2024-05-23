@@ -50,17 +50,30 @@ namespace SimulationToolTest
 
             var builder_app = new Actions(sessionHTT);
             int xCoord = 295 * WinWidth / 1680;
-            builder_app.MoveToElement(FusionApp, xCoord, 219).Click().ClickAndHold().MoveByOffset(0, -80).Release().Build().Perform();
-            Thread.Sleep(TimeSpan.FromSeconds(5));
+            int yCord = 219 * WinHeigth / 1010;
+            builder_app.MoveToElement(FusionApp, xCoord, yCord)
+                .Click()
+                .ClickAndHold()
+                .MoveByOffset(0, -80)
+                .Release()
+                .Build().Perform();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            builder_app = new Actions(sessionHTT);
+            xCoord = 301 * WinWidth / 1680;
+            yCord = 228 * WinHeigth / 1010;
+            builder_app.MoveToElement(FusionApp, xCoord, yCord)
+                .ClickAndHold()
+                .MoveByOffset(0, -70)
+                .Release()
+                .Build().Perform();
             //builder_app.DragAndDropToOffset(FusionApp, 0, -100).Build().Perform();
             Thread.Sleep(TimeSpan.FromSeconds(1));
-
 
             //WindowsElement Lateral = sessionHTT.FindElementByName("Treatment Head Angles");
             WindowsElement Lateral = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxAngles.horizontalSliderAngleZ");
             var builder = new Actions(sessionHTT);
             xCoord = Lateral.Size.Width / 2;
-            int yCord = Lateral.Size.Height / 2;
+            yCord = Lateral.Size.Height / 2;
             builder.MoveToElement(Lateral, xCoord, yCord).Click().Build().Perform(); // pixel offset from top left
             builder.DragAndDropToOffset(Lateral, 30, 0).Perform();
 
