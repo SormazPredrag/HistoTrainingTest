@@ -18,6 +18,7 @@ namespace SimulationToolTest
     [TestClass]
     public class ScenarioFusionApp : HistoTraningSession
     {
+        private string targetName = "New Target";
 
         [TestMethod]
         public void Maximize3D()
@@ -92,7 +93,7 @@ namespace SimulationToolTest
             WindowsElement targetNameEdit = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.nameEdit") as WindowsElement;
             targetNameEdit.Click();
             targetNameEdit.Clear();
-            targetNameEdit.SendKeys("New Target");
+            targetNameEdit.SendKeys(targetName);
             //WindowsElement startTarget = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.saveButton") as WindowsElement;
             WindowsElement startTarget = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.startButton") as WindowsElement;
             startTarget.Click();

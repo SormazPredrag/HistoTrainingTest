@@ -87,7 +87,7 @@ namespace SimulationToolTest
                 //var myElement = sessionHTT.FindElementByName("Continue Import");
                 //new WebDriverWait(sessionHTT, TimeSpan.FromSeconds(20)).Until(d => myElement.Displayed);
                 //myElement.Click();
-                Thread.Sleep(TimeSpan.FromSeconds(17));
+                Thread.Sleep(TimeSpan.FromSeconds(browserPause));
                 sessionHTT.FindElementByName("Continue Import").Click();
 
                 Thread.Sleep(TimeSpan.FromSeconds(3));
@@ -116,7 +116,7 @@ namespace SimulationToolTest
                 myElement1.Click();
                 */
                 
-                Thread.Sleep(TimeSpan.FromSeconds(17));
+                Thread.Sleep(TimeSpan.FromSeconds(browserPause));
                 sessionHTT.FindElementByName("Continue Import").Click();
 
                 Thread.Sleep(TimeSpan.FromSeconds(17));

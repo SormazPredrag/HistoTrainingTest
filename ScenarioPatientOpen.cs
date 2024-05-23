@@ -45,6 +45,7 @@ namespace SimulationToolTest
             Thread.Sleep(100);
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRegistrationPage.patientRegistrationBg.patientRecordListView.patientFilteringWidget.lastNameLineEdit").SendKeys(LastNameSearch); //AutomationId: 
 
+            //Verification - Patient Registration
             //Double click on list
             //sessionHTT.FindElementByName("Example_1").Click(); sessionHTT.FindElementByName("Example_1").Click();
             WindowsElement example = sessionHTT.FindElementByName(patientId);
