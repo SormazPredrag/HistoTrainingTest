@@ -100,7 +100,7 @@ namespace SimulationToolTest
             sessionHTT.FindElementByName("Start Planning Session").Click();
 
             //Bug HT v3.8.1 Physician can be empty!!!
-            sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.planningSessionSetupPage.PhysicianLineEdit").SendKeys("dr. i");
+            sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.planningSessionSetupPage.PhysicianLineEdit").SendKeys("can be empty");
             //SendKeys have problem with uppercase!!!
 
             /*
