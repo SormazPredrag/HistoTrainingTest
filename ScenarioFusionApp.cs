@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.ImageComparison;
 using OpenQA.Selenium.Appium.Windows;
@@ -98,7 +99,20 @@ namespace SimulationToolTest
             WindowsElement startTarget = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.startButton") as WindowsElement;
             startTarget.Click();
 
+            //WindowsElement Lateral = sessionHTT.FindElementByName("Treatment Head Angles");
+            WindowsElement Lateral = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxAngles.horizontalSliderAngleZ");
+            var builder1 = new Actions(sessionHTT);
+            xCoord = Lateral.Size.Width /2;
+            int yCord = Lateral.Size.Height /2;
+            builder1.MoveToElement(Lateral, xCoord, yCord).Click().Build().Perform(); // pixel offset from top left
+            builder1.DragAndDropToOffset(Lateral, 30, 0).Perform();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
 
+            WindowsElement CranioCaudal = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxAngles.horizontalSliderAngleX");
+            var builder2 = new Actions(sessionHTT);
+            //builder2.MoveToElement(CranioCaudal, xCoord, yCord).Click().Build().Perform(); // pixel offset from top left
+            builder2.DragAndDropToOffset(CranioCaudal, -40, 0).Perform();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
 
             //Sidebar
             // "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar"
