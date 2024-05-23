@@ -18,7 +18,8 @@ namespace SimulationToolTest
     [TestClass]
     public class ScenarioTargetSave : HistoTraningSession
     {
-        private string targetName = "New Target";
+        private string targetName = "new target";
+        private string screenFileName = "D:\\testHistoScreenshot_1.png";
 
         [TestMethod]
         public void SaveTarget()
@@ -134,7 +135,7 @@ namespace SimulationToolTest
             var similarityResult = sessionHTT.GetImagesSimilarity(screenshot.AsBase64EncodedString, screenshot.AsBase64EncodedString, options);
             Console.WriteLine("Sim result: " + similarityResult);
             */
-            screenshot.SaveAsFile("D:\\testHistoScreenshot_1.png");
+            screenshot.SaveAsFile(screenFileName);
 
 
             //Sidebar
