@@ -52,6 +52,7 @@ namespace SimulationToolTest
 
             //This is DICOM now
             FusionApp = sessionHTT.FindElementByName("Fusion App");
+            Console.WriteLine($"FusionApp size {FusionApp.Rect.ToString()}");
             int x = FusionApp.Location.X + FusionApp.Size.Width / 2;
             int y = FusionApp.Location.Y + FusionApp.Size.Height / 2;
             int dx = FusionApp.Size.Width/2;
@@ -124,6 +125,16 @@ namespace SimulationToolTest
             sessionHTT.FindElementByName("Center").Click();
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
+            // Take a screenshot
+            Screenshot screenshot = sessionHTT.GetScreenshot();
+            /*
+            var options = new SimilarityMatchingOptions { Visualize = true };
+            var similarityResult = sessionHTT.GetImagesSimilarity(screenshot.AsBase64EncodedString, screenshot.AsBase64EncodedString, options);
+            Console.WriteLine("Sim result: " + similarityResult);
+            */
+            screenshot.SaveAsFile(screenFileName);
+            //Mora ovde da se uhvati screen jer se ImFusion prozor smanji
+
             sessionHTT.FindElementByName("Accept Planned Target(s)").Click();
 
             //Click to Menu
@@ -136,24 +147,40 @@ namespace SimulationToolTest
             shtMeny.Click();
 
 
-            // Take a screenshot
-            Screenshot screenshot = sessionHTT.GetScreenshot();
-            /*
-            var options = new SimilarityMatchingOptions { Visualize = true };
-            var similarityResult = sessionHTT.GetImagesSimilarity(screenshot.AsBase64EncodedString, screenshot.AsBase64EncodedString, options);
-            Console.WriteLine("Sim result: " + similarityResult);
-            */
-            screenshot.SaveAsFile(screenFileName);
-
             //Crop image
             Mat pic = new Mat();
             pic = CvInvoke.Imread(screenFileName, LoadImageType.AnyColor);
 
             Rectangle rectangle = new Rectangle(x, y, dx, dy);
             Mat cropped = new Mat(pic, rectangle);
+            
             cropped.Save(croppedFileName);
 
 
+            Bitmap bMap = Bitmap.FromFile(croppedFileName) as Bitmap;
+            PictureAnalysis.GetMostUsedColor(bMap);
+            Color MostUsed = PictureAnalysis.MostUsedColor;
+            Console.WriteLine("Najkoriscenija boja na slici " + MostUsed);
+            Console.WriteLine("10 Najkoriscenijih boja na slici: " + PictureAnalysis.MostUsedColorIncidence.ToString());
+            List<Color> lista = PictureAnalysis.TenMostUsedColors;
+            int redColor = 0;
+            int greenColor = 0;
+            foreach (Color color in lista)
+            {
+                redColor += color.R;
+                greenColor += color.G;
+                Console.WriteLine(color.ToString());
+            }
+            if (redColor > greenColor)
+            {
+                Console.WriteLine("Preovladjuje CRVENA boja!");
+            } else if (greenColor > redColor)
+            {
+                Console.WriteLine("Preovladjuje ZELENA boja!");
+            } else
+            {
+                Console.WriteLine("Preovladjuje siva boja!");
+            }
             //Sidebar
             // "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar"
             //ResetButton: "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.viewResetButton"
@@ -173,6 +200,70 @@ namespace SimulationToolTest
         {
             TearDown();
         }
+    }
+
+    public static class PictureAnalysis
+    {
+        public static List<Color> TenMostUsedColors { get; private set; }
+        public static List<int> TenMostUsedColorIncidences { get; private set; }
+
+        public static Color MostUsedColor { get; private set; }
+        public static int MostUsedColorIncidence { get; private set; }
+
+        private static int pixelColor;
+
+        private static Dictionary<int, int> dctColorIncidence;
+
+        public static void GetMostUsedColor(Bitmap theBitMap)
+        {
+            TenMostUsedColors = new List<Color>();
+            TenMostUsedColorIncidences = new List<int>();
+
+            MostUsedColor = Color.Empty;
+            MostUsedColorIncidence = 0;
+
+            // does using Dictionary<int,int> here
+            // really pay-off compared to using
+            // Dictionary<Color, int> ?
+
+            // would using a SortedDictionary be much slower, or ?
+
+            dctColorIncidence = new Dictionary<int, int>();
+
+            // this is what you want to speed up with unmanaged code
+            for (int row = 0; row < theBitMap.Size.Width; row++)
+            {
+                for (int col = 0; col < theBitMap.Size.Height; col++)
+                {
+                    pixelColor = theBitMap.GetPixel(row, col).ToArgb();
+
+                    if (dctColorIncidence.Keys.Contains(pixelColor))
+                    {
+                        dctColorIncidence[pixelColor]++;
+                    }
+                    else
+                    {
+                        dctColorIncidence.Add(pixelColor, 1);
+                    }
+                }
+            }
+
+            // note that there are those who argue that a
+            // .NET Generic Dictionary is never guaranteed
+            // to be sorted by methods like this
+            var dctSortedByValueHighToLow = dctColorIncidence.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            // this should be replaced with some elegant Linq ?
+            foreach (KeyValuePair<int, int> kvp in dctSortedByValueHighToLow.Take(10))
+            {
+                TenMostUsedColors.Add(Color.FromArgb(kvp.Key));
+                TenMostUsedColorIncidences.Add(kvp.Value);
+            }
+
+            MostUsedColor = Color.FromArgb(dctSortedByValueHighToLow.First().Key);
+            MostUsedColorIncidence = dctSortedByValueHighToLow.First().Value;
+        }
+
     }
 
 }
