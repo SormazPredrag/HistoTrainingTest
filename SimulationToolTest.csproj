@@ -153,6 +153,7 @@
     <Compile Include="ScenarioImport.cs" />
     <Compile Include="ScenarioPatientOpen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScenarioPlanningSession.cs" />
     <Compile Include="ScenarioScreenShot.cs" />
     <Compile Include="ScenarioTargetSave.cs" />
     <Compile Include="ScenarioTreatmentHead.cs" />

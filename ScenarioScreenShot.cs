@@ -19,6 +19,7 @@ namespace SimulationToolTest
         private string saveFilename = "Screen-1.png";
         private const string TargetSaveLocation = @"%USERPROFILE%\Desktop";
         private const string ExplorerAppId = @"C:\Windows\System32\explorer.exe";
+        private string targetName = "new target";
 
         [TestMethod]
         public void ClickScreenShot()
@@ -39,7 +40,7 @@ namespace SimulationToolTest
             WindowsElement targetNameEdit = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.nameEdit") as WindowsElement;
             targetNameEdit.Click();
             targetNameEdit.Clear();
-            targetNameEdit.SendKeys("New Target");
+            targetNameEdit.SendKeys(targetName);
             //WindowsElement startTarget = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.saveButton") as WindowsElement;
             WindowsElement startTarget = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.startButton") as WindowsElement;
             startTarget.Click();
@@ -47,7 +48,7 @@ namespace SimulationToolTest
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.ellipsisButton").Click();
 
             //Click Screen Shot
-            FusionApp = sessionRoot.FindElementByXPath("//Window[@ClassName='QMenu'][@Name='Fusion App']//MenuItem[@ClassName='QWidgetAction']");
+            FusionApp = sessionRoot.FindElementByName("Fusion App"); // FindElementByXPath("//Window[@ClassName='QMenu'][@Name='Fusion App']");  //MenuItem[@ClassName='QWidgetAction']
             var builder1 = new Actions(sessionRoot);
             builder1.MoveToElement(FusionApp, 34, 27).Click().Build().Perform();
 
