@@ -181,6 +181,7 @@ namespace SimulationToolTest
             {
                 Console.WriteLine("Preovladjuje siva boja!");
             }
+
             //Sidebar
             // "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar"
             //ResetButton: "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.viewResetButton"
