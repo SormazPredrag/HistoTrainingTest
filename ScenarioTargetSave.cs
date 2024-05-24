@@ -23,6 +23,7 @@ namespace SimulationToolTest
     {
         private string targetName = "new target";
         private string screenFileName = "D:\\testHistoScreenshot_1.png";
+        private string croppedFileName = "D:\\cropped.jpg";
 
         [TestMethod]
         public void SaveTarget()
@@ -143,12 +144,14 @@ namespace SimulationToolTest
             Console.WriteLine("Sim result: " + similarityResult);
             */
             screenshot.SaveAsFile(screenFileName);
+
+            //Crop image
             Mat pic = new Mat();
             pic = CvInvoke.Imread(screenFileName, LoadImageType.AnyColor);
 
             Rectangle rectangle = new Rectangle(x, y, dx, dy);
             Mat cropped = new Mat(pic, rectangle);
-            cropped.Save("D:\\trt.jpg");
+            cropped.Save(croppedFileName);
 
 
             //Sidebar
