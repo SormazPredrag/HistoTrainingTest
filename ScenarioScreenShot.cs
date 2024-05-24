@@ -48,6 +48,7 @@ namespace SimulationToolTest
             sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.ellipsisButton").Click();
 
             //Click Screen Shot
+            //Fusion App from ROOT
             FusionApp = sessionRoot.FindElementByName("Fusion App"); // FindElementByXPath("//Window[@ClassName='QMenu'][@Name='Fusion App']");  //MenuItem[@ClassName='QWidgetAction']
             var builder1 = new Actions(sessionRoot);
             builder1.MoveToElement(FusionApp, 34, 27).Click().Build().Perform();
