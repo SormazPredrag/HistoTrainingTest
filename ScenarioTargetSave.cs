@@ -11,6 +11,9 @@ using OpenQA.Selenium.Appium.ImageComparison;
 using System.Threading;
 using System.Drawing;
 using System.IO;
+using Emgu.CV;
+using OpenQA.Selenium.Appium;
+using Emgu.CV.CvEnum;
 
 namespace SimulationToolTest
 {
@@ -48,6 +51,10 @@ namespace SimulationToolTest
 
             //This is DICOM now
             FusionApp = sessionHTT.FindElementByName("Fusion App");
+            int x = FusionApp.Location.X + FusionApp.Size.Width / 2;
+            int y = FusionApp.Location.Y + FusionApp.Size.Height / 2;
+            int dx = FusionApp.Size.Width/2;
+            int dy = FusionApp.Size.Height/2;
 
             var builder_app = new Actions(sessionHTT);
             int xCoord = 295 * WinWidth / 1680;
@@ -136,6 +143,12 @@ namespace SimulationToolTest
             Console.WriteLine("Sim result: " + similarityResult);
             */
             screenshot.SaveAsFile(screenFileName);
+            Mat pic = new Mat();
+            pic = CvInvoke.Imread(screenFileName, LoadImageType.AnyColor);
+
+            Rectangle rectangle = new Rectangle(x, y, dx, dy);
+            Mat cropped = new Mat(pic, rectangle);
+            cropped.Save("D:\\trt.jpg");
 
 
             //Sidebar
