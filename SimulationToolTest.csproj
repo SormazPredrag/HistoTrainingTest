@@ -155,6 +155,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScenarioScreenShot.cs" />
     <Compile Include="ScenarioTargetSave.cs" />
+    <Compile Include="ScenarioTreatmentHead.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
