@@ -36,7 +36,10 @@ namespace SimulationToolTest
             //Add Target button
             //Button[@Name=\"Add Target\"][@AutomationId=\"PlanWidget.frame.planBodyWidget.addTargetButton\"]"
             sessionHTT.FindElementByAccessibilityId("PlanWidget.frame.planBodyWidget.addTargetButton").Click();
-            WindowsElement FusionApp = sessionHTT.FindElementByName("Fusion App");
+            
+            //WindowsElement FusionApp = sessionHTT.FindElementByName("Fusion App");
+            string xpathFusion = "//Window[@ClassName=\"QDialog\"][@Name=\"Fusion App\"]/Group[@AutomationId=\"TargetInfoEditWidget\"]";
+            WindowsElement FusionApp = sessionHTT.FindElementByXPath(xpathFusion);
             //Console.WriteLine("Saving element to D:\\Fusion_App.png");
             //var screenshot1 = FusionApp.GetScreenshot();
             //screenshot1.SaveAsFile("D:\\Fusion_App.png");
