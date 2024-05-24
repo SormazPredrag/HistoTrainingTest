@@ -16,6 +16,7 @@ namespace SimulationToolTest
     public class ScenarioTreatmentHead : HistoTraningSession
     {
         private string targetName = "new target";
+        private string screenFileName = "D:\\testTreatmentHead.png";
 
         [TestMethod]
         public void TreatmentHeadChange()
@@ -40,10 +41,18 @@ namespace SimulationToolTest
             WindowsElement startTarget = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.startButton") as WindowsElement;
             startTarget.Click();
 
-            sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.treatmentHeadWidget.comboBoxTransducer").Click();
+            var THElement = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.treatmentHeadWidget.comboBoxTransducer");
+            THElement.Click();
             //Name:	"2-12 cm"
             sessionHTT.FindElementByName("8-14 cm").Click();
             //Proveriti da li se TH pomerio
+            Screenshot screenshot = THElement.GetScreenshot();
+            /*
+            var options = new SimilarityMatchingOptions { Visualize = true };
+            var similarityResult = sessionHTT.GetImagesSimilarity(screenshot.AsBase64EncodedString, screenshot.AsBase64EncodedString, options);
+            Console.WriteLine("Sim result: " + similarityResult);
+            */
+            screenshot.SaveAsFile(screenFileName);
 
             app.ShutDownMenuClick();
 

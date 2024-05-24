@@ -14,6 +14,7 @@ using System.IO;
 using Emgu.CV;
 using OpenQA.Selenium.Appium;
 using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
 
 namespace SimulationToolTest
 {
@@ -156,11 +157,21 @@ namespace SimulationToolTest
 
             Rectangle rectangle = new Rectangle(x, y, dx, dy);
             Mat cropped = new Mat(pic, rectangle);
-            
+
+            var sourceImage = cropped.ToImage<Gray, byte>();
+            var colorImage = cropped.ToImage<Bgr, byte>();
+            Image<Gray, byte> resultImage = new Image<Gray, byte>(800, 800);
+            //var sourceImage = cropped.ToImage<Bgr, byte>();
+            //Image<Bgr, byte> resultImage = new Image<Bgr, byte>(800, 800);
+            CvInvoke.AbsDiff(sourceImage, sourceImage, resultImage);
+            int diff = CvInvoke.CountNonZero(resultImage);
+            Console.WriteLine($"Razlika je: {diff.ToString()}");
+            //resultImage.Save("D:\\trt.jpg");
+
             cropped.Save(croppedFileName);
 
-
-            Bitmap bMap = Bitmap.FromFile(croppedFileName) as Bitmap;
+            var bMap = colorImage.ToBitmap();
+            //Bitmap bMap = Bitmap.FromFile(croppedFileName) as Bitmap;
             PictureAnalysis.GetMostUsedColor(bMap);
             Color MostUsed = PictureAnalysis.MostUsedColor;
             Console.WriteLine("Najkoriscenija boja na slici " + MostUsed);
