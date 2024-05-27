@@ -78,6 +78,7 @@ namespace SimulationToolTest
 
             //ConvertTo Image
             //Image<Bgr, Byte > img1 = new Image<Bgr, Byte>(screenFileName);
+            //Image<Gray, Byte> img1 = new Image<Gray, Byte>("D:\\mrt.png");
 
             //Create OCR engine
             Tesseract _ocr;
@@ -86,13 +87,14 @@ namespace SimulationToolTest
             //_ocr.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ-1234567890");
             img1._ThresholdBinary(new Gray(127), new Gray(255));
             //img1.Save("D:\\mrt.png");
+
             try
-            { 
+            {
                 //recognize the text
                 _ocr.Recognize(img1);
                 //get the text
                 string result = _ocr.GetText();
-                Console.WriteLine(result);
+                Console.WriteLine($"OCR text {result}");
             } catch (Exception ex)
             {
 
