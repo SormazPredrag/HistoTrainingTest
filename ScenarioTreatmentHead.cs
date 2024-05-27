@@ -8,6 +8,11 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
 using System.Threading;
+using Emgu.CV.CvEnum;
+using Emgu.CV;
+using Emgu.CV.Structure;
+using Emgu.CV.OCR;
+using Microsoft.JScript;
 
 namespace SimulationToolTest
 {
@@ -17,6 +22,7 @@ namespace SimulationToolTest
     {
         private string targetName = "new target";
         private string screenFileName = "D:\\testTreatmentHead.png";
+        private string transducerName = "8-14 cm";
 
         [TestMethod]
         public void TreatmentHeadChange()
@@ -42,9 +48,15 @@ namespace SimulationToolTest
             startTarget.Click();
 
             var THElement = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.treatmentHeadWidget.comboBoxTransducer");
+
             THElement.Click();
             //Name:	"2-12 cm"
-            sessionHTT.FindElementByName("8-14 cm").Click();
+            sessionHTT.FindElementByName(transducerName).Click();
+
+            THElement = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.treatmentHeadWidget.comboBoxTransducer");
+            Console.WriteLine($"Transduser set to: {THElement.Text}");
+            Assert.AreEqual(THElement.Text, transducerName);
+
             //Proveriti da li se TH pomerio
             Screenshot screenshot = THElement.GetScreenshot();
             /*
@@ -53,6 +65,38 @@ namespace SimulationToolTest
             Console.WriteLine("Sim result: " + similarityResult);
             */
             screenshot.SaveAsFile(screenFileName);
+            
+            //Convert Screenshot to OpenCV Mat
+            Mat pic = new Mat();
+            //pic = CvInvoke.Imread(screenFileName, LoadImageType.AnyColor);
+            CvInvoke.Imdecode(screenshot.AsByteArray, LoadImageType.AnyColor, pic);
+            //CvInvoke.Invert(pic, pic, DecompMethod.Cholesky);
+
+            //To gray color
+            //pic.Save("D:\\mrt.png");
+            var img1 = pic.ToImage<Gray, Byte>();
+
+            //ConvertTo Image
+            //Image<Bgr, Byte > img1 = new Image<Bgr, Byte>(screenFileName);
+
+            //Create OCR engine
+            Tesseract _ocr;
+            //_ocr = new Tesseract(dataPath, "eng", OcrEngineMode.TesseractCubeCombined);
+            _ocr = new Tesseract();
+            //_ocr.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ-1234567890");
+            img1._ThresholdBinary(new Gray(127), new Gray(255));
+            //img1.Save("D:\\mrt.png");
+            try
+            { 
+                //recognize the text
+                _ocr.Recognize(img1);
+                //get the text
+                string result = _ocr.GetText();
+                Console.WriteLine(result);
+            } catch (Exception ex)
+            {
+
+            }
 
             app.ShutDownMenuClick();
 
