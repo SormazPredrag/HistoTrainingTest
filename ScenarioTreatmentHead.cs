@@ -66,7 +66,7 @@ namespace SimulationToolTest
             Console.WriteLine("Sim result: " + similarityResult);
             */
             //screenshot.SaveAsFile(screenFileName);
-            
+
             //Convert Screenshot to OpenCV Mat
             Mat pic = new Mat();
             //pic = CvInvoke.Imread(screenFileName, LoadImageType.AnyColor);
@@ -102,6 +102,19 @@ namespace SimulationToolTest
             {
 
             }
+
+            //Focal Steering SPINNER
+            var SpinnerElement = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.treatmentHeadWidget.spinBoxSteering");
+            var builder = new Actions(sessionHTT);
+            builder.MoveToElement(SpinnerElement, SpinnerElement.Size.Width / 2, SpinnerElement.Size.Height / 3).Click().Build().Perform();
+            Thread.Sleep(100);
+            builder.MoveToElement(SpinnerElement, SpinnerElement.Size.Width / 2, SpinnerElement.Size.Height / 3).Click().Build().Perform();
+            Thread.Sleep(100);
+            builder = new Actions(sessionHTT);
+            builder.MoveToElement(SpinnerElement, SpinnerElement.Size.Width / 2, SpinnerElement.Size.Height - 10).Click().Build().Perform();
+            SpinnerElement = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.treatmentHeadWidget.spinBoxSteering");
+            Console.WriteLine($"Fosal Steering: {SpinnerElement.Text}");
+            //Assert.AreEqual(SpinnerElement.Text, "10 mm");
 
             app.ShutDownMenuClick();
 
