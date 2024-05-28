@@ -116,6 +116,30 @@ namespace SimulationToolTest
             Console.WriteLine($"Fosal Steering: {SpinnerElement.Text}");
             //Assert.AreEqual(SpinnerElement.Text, "10 mm");
 
+            //Planned Treatment Volume
+            var PTVElementX = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.doubleSpinBoxVolumeX");
+            builder = new Actions(sessionHTT);
+            builder.MoveToElement(PTVElementX, PTVElementX.Size.Width / 2, PTVElementX.Size.Height/ 3).Click().Click().Click().Build().Perform(); //3 clicks
+            Thread.Sleep(100);
+            Console.WriteLine($"X: {PTVElementX.Text}");
+            //Assert.AreEqual(PTVElementX.Text, "23 mm");
+
+            var PTVElementY = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.doubleSpinBoxVolumeY");
+            builder = new Actions(sessionHTT);
+            builder.MoveToElement(PTVElementY, PTVElementY.Size.Width / 2, PTVElementY.Size.Height - 10).Click().Build().Perform();
+            Thread.Sleep(100);
+            Console.WriteLine($"Y: {PTVElementY.Text}");
+            //Assert.AreEqual(PTVElementY.Text, "19 mm");
+
+            var PTVElementZ = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.doubleSpinBoxVolumeZ");
+            builder = new Actions(sessionHTT);
+            builder.MoveToElement(PTVElementZ, PTVElementZ.Size.Width / 2, PTVElementZ.Size.Height / 3).Click().Click().Build().Perform(); //2 clicks
+            Thread.Sleep(100);
+            Console.WriteLine($"Y: {PTVElementZ.Text}");
+            //Assert.AreEqual(PTVElementZ.Text, "21 mm");
+
+
+
             app.ShutDownMenuClick();
 
         }
