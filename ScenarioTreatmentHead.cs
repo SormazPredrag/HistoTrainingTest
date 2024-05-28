@@ -92,7 +92,7 @@ namespace SimulationToolTest
 
             try
             {
-                //TEXT IS TO SMALL
+                //TEXT IS TO SMALL for OCR
                 //recognize the text
                 _ocr.Recognize(img1);
                 //get the text
