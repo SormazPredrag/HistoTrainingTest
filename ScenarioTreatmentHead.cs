@@ -138,7 +138,7 @@ namespace SimulationToolTest
             Console.WriteLine($"Y: {PTVElementZ.Text}");
             Assert.AreEqual(PTVElementZ.Text, "22.0 mm");
 
-            //Margin
+            //Margin 2 up + 1 down
             var PTVElementM = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.doubleSpinBoxMargin");
             builder = new Actions(sessionHTT);
             builder.MoveToElement(PTVElementM, PTVElementM.Size.Width / 2, PTVElementM.Size.Height / 3).Click().Click().Build().Perform(); //2 clicks
@@ -147,7 +147,7 @@ namespace SimulationToolTest
             builder.MoveToElement(PTVElementM, PTVElementM.Size.Width / 2, PTVElementM.Size.Height - 10).Click().Build().Perform();
             Thread.Sleep(100);
             Console.WriteLine($"Y: {PTVElementM.Text}");
-            Assert.AreEqual(PTVElementZ.Text, "6.0 mm");
+            Assert.AreEqual(PTVElementM.Text, "6.0 mm");
 
 
 
