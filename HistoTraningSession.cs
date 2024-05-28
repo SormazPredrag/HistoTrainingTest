@@ -129,6 +129,9 @@ namespace SimulationToolTest
 
         public static void CheckWindowsSize()
         {
+            // :(
+            //sessionHTT.Manage().Window.Size = new Size(800, 450);
+
             //Get Window size
             //sessionHTT.Manage().Window.Maximize();
             //Thread.Sleep(TimeSpan.FromSeconds(7));
@@ -151,7 +154,7 @@ namespace SimulationToolTest
             WinHeigth = windowSize.Height;
             //Assert.AreEqual(windowSize.Width, 1920);
             //Assert.AreEqual(windowSize.Height, 1040);
-
+            
         }
 
         public static void TearDown()
