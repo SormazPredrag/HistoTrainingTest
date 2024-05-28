@@ -23,6 +23,7 @@ namespace SimulationToolTest
         private string targetName = "new target";
         private string screenFileName = "D:\\testTreatmentHead.png";
         private string transducerName = "8-14 cm";
+        private string dataPath = "D:\\Users\\Luka\\source\\repos\\WinAppDriver\\Samples\\C#\\HistoTrainingTest\\tessdata";
 
         [TestMethod]
         public void TreatmentHeadChange()
@@ -64,13 +65,12 @@ namespace SimulationToolTest
             var similarityResult = sessionHTT.GetImagesSimilarity(screenshot.AsBase64EncodedString, screenshot.AsBase64EncodedString, options);
             Console.WriteLine("Sim result: " + similarityResult);
             */
-            screenshot.SaveAsFile(screenFileName);
+            //screenshot.SaveAsFile(screenFileName);
             
             //Convert Screenshot to OpenCV Mat
             Mat pic = new Mat();
             //pic = CvInvoke.Imread(screenFileName, LoadImageType.AnyColor);
             CvInvoke.Imdecode(screenshot.AsByteArray, LoadImageType.AnyColor, pic);
-            //CvInvoke.Invert(pic, pic, DecompMethod.Cholesky);
 
             //To gray color
             //pic.Save("D:\\mrt.png");
@@ -78,18 +78,21 @@ namespace SimulationToolTest
 
             //ConvertTo Image
             //Image<Bgr, Byte > img1 = new Image<Bgr, Byte>(screenFileName);
-            //Image<Gray, Byte> img1 = new Image<Gray, Byte>("D:\\mrt.png");
+            //Image<Gray, Byte> img1 = new Image<Gray, Byte>("D:\\mrt.jpg");
 
             //Create OCR engine
             Tesseract _ocr;
-            //_ocr = new Tesseract(dataPath, "eng", OcrEngineMode.TesseractCubeCombined);
-            _ocr = new Tesseract();
-            //_ocr.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ-1234567890");
+            _ocr = new Tesseract(dataPath, "eng", OcrEngineMode.TesseractCubeCombined);
+            //_ocr.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwyz-1234567890");
+            _ocr.SetVariable("tessedit_char_whitelist", "abcdefghijklmnopqrstuvwyz-1234567890");
+            //_ocr.PageSegMode = PageSegMode.SingleBlock;
+            //Console.WriteLine(Tesseract.Version);
             img1._ThresholdBinary(new Gray(127), new Gray(255));
             //img1.Save("D:\\mrt.png");
 
             try
             {
+                //TEXT IS TO SMALL
                 //recognize the text
                 _ocr.Recognize(img1);
                 //get the text

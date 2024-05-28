@@ -37,9 +37,10 @@ namespace SimulationToolTest
             WindowsElement example = sessionHTT.FindElementByName(patientId);
             //sessionHTT.FindElementByName(FirstNameSearch);
             sessionHTT.FindElementByName(LastNameSearch);
+            
             //Today imported files
-            DateTime now = DateTime.Now;
-            sessionHTT.FindElementByName(now.ToString("dd MMM yyyy"));
+            //DateTime now = DateTime.Now;
+            //sessionHTT.FindElementByName(now.ToString("dd MMM yyyy"));
 
             example.Click();
             /*
