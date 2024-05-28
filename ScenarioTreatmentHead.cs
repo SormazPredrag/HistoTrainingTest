@@ -122,21 +122,32 @@ namespace SimulationToolTest
             builder.MoveToElement(PTVElementX, PTVElementX.Size.Width / 2, PTVElementX.Size.Height/ 3).Click().Click().Click().Build().Perform(); //3 clicks
             Thread.Sleep(100);
             Console.WriteLine($"X: {PTVElementX.Text}");
-            //Assert.AreEqual(PTVElementX.Text, "23 mm");
+            Assert.AreEqual(PTVElementX.Text, "23.0 mm");
 
             var PTVElementY = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.doubleSpinBoxVolumeY");
             builder = new Actions(sessionHTT);
             builder.MoveToElement(PTVElementY, PTVElementY.Size.Width / 2, PTVElementY.Size.Height - 10).Click().Build().Perform();
             Thread.Sleep(100);
             Console.WriteLine($"Y: {PTVElementY.Text}");
-            //Assert.AreEqual(PTVElementY.Text, "19 mm");
+            Assert.AreEqual(PTVElementY.Text, "19.0 mm");
 
             var PTVElementZ = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.doubleSpinBoxVolumeZ");
             builder = new Actions(sessionHTT);
             builder.MoveToElement(PTVElementZ, PTVElementZ.Size.Width / 2, PTVElementZ.Size.Height / 3).Click().Click().Build().Perform(); //2 clicks
             Thread.Sleep(100);
             Console.WriteLine($"Y: {PTVElementZ.Text}");
-            //Assert.AreEqual(PTVElementZ.Text, "21 mm");
+            Assert.AreEqual(PTVElementZ.Text, "22.0 mm");
+
+            //Margin
+            var PTVElementM = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxVolume.doubleSpinBoxMargin");
+            builder = new Actions(sessionHTT);
+            builder.MoveToElement(PTVElementM, PTVElementM.Size.Width / 2, PTVElementM.Size.Height / 3).Click().Click().Build().Perform(); //2 clicks
+            Thread.Sleep(100);
+            builder = new Actions(sessionHTT);
+            builder.MoveToElement(PTVElementM, PTVElementM.Size.Width / 2, PTVElementM.Size.Height - 10).Click().Build().Perform();
+            Thread.Sleep(100);
+            Console.WriteLine($"Y: {PTVElementM.Text}");
+            Assert.AreEqual(PTVElementZ.Text, "6.0 mm");
 
 
 
