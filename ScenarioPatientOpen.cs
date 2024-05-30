@@ -67,7 +67,9 @@ namespace SimulationToolTest
             builder = new Actions(sessionHTT);
             builder.MoveToElement(seriesElement, -11, 30).Click().Build().Perform();
 
-            sessionHTT.FindElementByName("01012000V201 - Series 5001 : axial T1 vibe_rad outPh B1-Ps 1,2mm").Click();
+            //sessionHTT.FindElementByName("01012000V201 - Series 5001 : axial T1 vibe_rad outPh B1-Ps 1,2mm").Click();
+            //sessionHTT.FindElementByName("01012000V201 - Series 4001 : axial T1 vibe inPh 1.5mm").Click();
+            sessionHTT.FindElementByName("01012000V201 - Series 3001 : axial T1 vibe oppPh 1.5mm").Click();
 
             LoadExsistingPatient();
 
