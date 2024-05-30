@@ -35,6 +35,10 @@ namespace SimulationToolTest
         private static string FirstNameSearch = "";
         private string LastNameSearch = "V201";
 
+        private string seriesName_1 = "01012000V201 - Series 5001 : axial T1 vibe_rad outPh B1-Ps 1,2mm";
+        private string seriesName_2 = "01012000V201 - Series 4001 : axial T1 vibe inPh 1.5mm";
+        private string seriesName_3 = "01012000V201 - Series 3001 : axial T1 vibe oppPh 1.5mm";
+
         [TestMethod]
         public void ExpandExsistingPatientList()
         {
@@ -67,9 +71,7 @@ namespace SimulationToolTest
             builder = new Actions(sessionHTT);
             builder.MoveToElement(seriesElement, -11, 30).Click().Build().Perform();
 
-            //sessionHTT.FindElementByName("01012000V201 - Series 5001 : axial T1 vibe_rad outPh B1-Ps 1,2mm").Click();
-            //sessionHTT.FindElementByName("01012000V201 - Series 4001 : axial T1 vibe inPh 1.5mm").Click();
-            sessionHTT.FindElementByName("01012000V201 - Series 3001 : axial T1 vibe oppPh 1.5mm").Click();
+            sessionHTT.FindElementByName(seriesName_1).Click();
 
             LoadExsistingPatient();
 
