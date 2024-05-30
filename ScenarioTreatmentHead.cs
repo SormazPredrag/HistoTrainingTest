@@ -129,6 +129,7 @@ namespace SimulationToolTest
                 //get the text
                 string result = _ocr.GetText();
                 Console.WriteLine($"OCR text {result}");
+                //Assert.AreEqual(result, transducerName + " v");
             } catch (Exception ex)
             {
 
