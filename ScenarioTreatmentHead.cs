@@ -21,6 +21,7 @@ namespace SimulationToolTest
     public class ScenarioTreatmentHead : HistoTraningSession
     {
         private string targetName = "new target";
+        private string targetName1 = "target 1";
         private string screenFileName = "D:\\testTreatmentHead.png";
         private string transducerName = "8-14 cm";
         private string dataPath = "D:\\Users\\Luka\\source\\repos\\WinAppDriver\\Samples\\C#\\HistoTrainingTest\\tessdata";
@@ -48,8 +49,36 @@ namespace SimulationToolTest
             WindowsElement startTarget = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.startButton") as WindowsElement;
             startTarget.Click();
 
-            var THElement = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.treatmentHeadWidget.comboBoxTransducer");
+            //Current Target edit
+            WindowsElement CurrentTargetButton = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.toolButtonTarget");
+            CurrentTargetButton.Click();
 
+            //Fusion App Edit Name - menu
+            FusionApp = sessionRoot.FindElementByName("Fusion App");
+            var EditName = FusionApp.FindElementByName("Edit Name");
+            //string xpath_LeftClickButton = "//Window[@Name=\"Histosonics Training Tool\"][@AutomationId=\"MainWindow\"]/Group[@AutomationId=\"MainWindow.centralwidget\"]/Custom[@AutomationId=\"MainWindow.centralwidget.stackedWidget\"]/Group[@AutomationId=\"MainWindow.centralwidget.stackedWidget.patientRecordPage\"]/Custom[starts-with(@AutomationId,\"MainWindow.centralwidget.stackedWidget.patientRecordPage.stacked\")]/Group[starts-with(@AutomationId,\"MainWindow.centralwidget.stackedWidget.patientRecordPage.stacked\")]/Group[starts-with(@AutomationId,\"MainWindow.centralwidget.stackedWidget.patientRecordPage.stacked\")]/Group[starts-with(@AutomationId,\"MainWindow.centralwidget.stackedWidget.patientRecordPage.stacked\")]/Group[starts-with(@AutomationId,\"MainWindow.centralwidget.stackedWidget.patientRecordPage.stacked\")]/Custom[starts-with(@AutomationId,\"MainWindow.centralwidget.stackedWidget.patientRecordPage.stacked\")]/Group[starts-with(@AutomationId,\"MainWindow.centralwidget.stackedWidget.patientRecordPage.stacked\")]/Button[@Name=\"...\"][starts-with(@AutomationId,\"MainWindow.centralwidget.stackedWidget.patientRecordPage.stacked\")]";
+            //var EditName = sessionHTT.FindElementByXPath(xpath_LeftClickButton);
+            EditName.Click();
+
+            //Edit Target Name
+            string xpath_LeftClickEditEdittarget = "//Window[@Name=\"Histosonics Training Tool\"][@AutomationId=\"MainWindow\"]/Window[@ClassName=\"QInputDialog\"][@Name=\"Target Treatment\"]/Edit[@ClassName=\"QLineEdit\"][@Name=\"Edit target name:\"]";
+            var winElem_LeftClickEditEdittarget = sessionHTT.FindElementByXPath(xpath_LeftClickEditEdittarget);
+            winElem_LeftClickEditEdittarget.Click();
+            winElem_LeftClickEditEdittarget.Clear();
+            winElem_LeftClickEditEdittarget.SendKeys(targetName1);
+
+            //OK
+            string xpath_LeftClickButtonOK = "//Window[@Name=\"Histosonics Training Tool\"][@AutomationId=\"MainWindow\"]/Window[@ClassName=\"QInputDialog\"][@Name=\"Target Treatment\"]/Group[@ClassName=\"QDialogButtonBox\"]/Button[@ClassName=\"QPushButton\"][@Name=\"OK\"]";
+            var winElem_LeftClickButtonOK = sessionHTT.FindElementByXPath(xpath_LeftClickButtonOK);
+            winElem_LeftClickButtonOK.Click();
+
+            //Current Target
+            WindowsElement CurrentTarget = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.comboBoxTarget");
+            Console.WriteLine($"!!!DONT WORK IN APLICATION Target Edit Name: {CurrentTarget.Text}");
+            //Assert.AreEqual(CurrentTarget.Text, targetName1);
+
+            //Treatment Head - Transducer
+            var THElement = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.treatmentHeadWidget.comboBoxTransducer");
             THElement.Click();
             //Name:	"2-12 cm"
             sessionHTT.FindElementByName(transducerName).Click();
@@ -71,6 +100,8 @@ namespace SimulationToolTest
             Mat pic = new Mat();
             //pic = CvInvoke.Imread(screenFileName, LoadImageType.AnyColor);
             CvInvoke.Imdecode(screenshot.AsByteArray, LoadImageType.AnyColor, pic);
+            //Resize image for OCR
+            CvInvoke.Resize(pic, pic, new System.Drawing.Size(pic.Width*2, pic.Height*2));
 
             //To gray color
             //pic.Save("D:\\mrt.png");
@@ -161,8 +192,6 @@ namespace SimulationToolTest
             builder = new Actions(sessionHTT);
             builder.DragAndDropToOffset(WatherLevel, -15, 0).Perform();
             Thread.Sleep(100);
-
-
 
             app.ShutDownMenuClick();
 
