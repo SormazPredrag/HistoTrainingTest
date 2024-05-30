@@ -47,7 +47,8 @@ namespace SimulationToolTest
             //Patient Rotation
             WindowsElement PatientRotation = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.groupBox_2.horizontalSliderPatientRotation");
             var builder = new Actions(sessionHTT);
-            builder.DragAndDropToOffset(PatientRotation, 30, 0).Perform();
+            var xCoord = 31 * WinWidth / 1680;
+            builder.DragAndDropToOffset(PatientRotation, xCoord, 0).Perform();
             Thread.Sleep(100);
             WindowsElement PatientAngle = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.groupBox_2.labelPatientRotation");
             Console.WriteLine($"Patient Angle is: {PatientAngle.Text}");
@@ -63,8 +64,22 @@ namespace SimulationToolTest
             builder = new Actions(sessionHTT);
             builder.DragAndDropToOffset(WatherLevel, -15, 0).Perform();
             Thread.Sleep(100);
+            WindowsElement WatherLevelText = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.groupBox_2.labelWaterLevelValue");
+            Console.WriteLine($"Wather Level: {WatherLevelText.Text}");
 
             app.ShutDownMenuClick();
+        }
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            Setup(context);
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            TearDown();
         }
     }
 }
