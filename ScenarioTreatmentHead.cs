@@ -149,6 +149,19 @@ namespace SimulationToolTest
             Console.WriteLine($"Y: {PTVElementM.Text}");
             Assert.AreEqual(PTVElementM.Text, "6.0 mm");
 
+            //Setup
+            //Patient Rotation
+            WindowsElement PatientRotation = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.groupBox_2.horizontalSliderPatientRotation");
+            builder = new Actions(sessionHTT);
+            builder.DragAndDropToOffset(PatientRotation, 20, 0).Perform();
+            Thread.Sleep(100);
+
+            //Wather Level
+            WindowsElement WatherLevel = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.groupBox_2.horizontalSliderWaterLevel");
+            builder = new Actions(sessionHTT);
+            builder.DragAndDropToOffset(WatherLevel, -15, 0).Perform();
+            Thread.Sleep(100);
+
 
 
             app.ShutDownMenuClick();
