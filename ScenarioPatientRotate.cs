@@ -15,10 +15,7 @@ namespace SimulationToolTest
     public class ScenarioPatientRotate : HistoTraningSession
     {
         private string targetName = "new target";
-        private string targetName1 = "target 1";
-        private string screenFileName = "D:\\testTreatmentHead.png";
-        private string transducerName = "8-14 cm";
-        private string dataPath = "D:\\Users\\Luka\\source\\repos\\WinAppDriver\\Samples\\C#\\HistoTrainingTest\\tessdata";
+        //private string targetName1 = "target 1";
 
         [TestMethod]
         public void TreatmentHeadChange()
