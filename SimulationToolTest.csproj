@@ -148,6 +148,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="HistoTraningSession.cs" />
+    <Compile Include="Scenario3DManipulation.cs" />
     <Compile Include="ScenarioDeletePatient.cs" />
     <Compile Include="ScenarioFusionApp.cs" />
     <Compile Include="ScenarioImport.cs" />
