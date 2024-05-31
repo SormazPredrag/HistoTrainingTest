@@ -24,8 +24,8 @@ namespace SimulationToolTest
         private string screenFileName_1 = "D:\\HistoFusionAppScreenshot_1.png";
         
         [TestMethod]
-        [DataRow("new target", 5)]
-        public void Manipupation3D(string targetName, int browserPause)
+        [DataRow("new target")]
+        public void Manipupation3D(string targetName)
         {
             var app = new ScenarioPatientOpen();
             app.ExpandExsistingPatientList();
