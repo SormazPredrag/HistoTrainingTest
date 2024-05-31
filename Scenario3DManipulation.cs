@@ -45,6 +45,8 @@ namespace SimulationToolTest
             WindowsElement startTarget = FusionApp.FindElementByAccessibilityId("TargetInfoEditWidget.startButton") as WindowsElement;
             startTarget.Click();
 
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
             /*
             //WindowsElement Lateral = sessionHTT.FindElementByName("Treatment Head Angles");
             WindowsElement Lateral = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.stackedWidget.treatmentPlanPage.scrollArea.qt_scrollarea_viewport.scrollAreaWidgetContents.treatmentPlanControllerBg.TreatmentPlanController.targetControlsWidget.groupBoxAngles.horizontalSliderAngleZ");
@@ -70,7 +72,7 @@ namespace SimulationToolTest
 
             var builder = new Actions(sessionHTT);
             int xCoord = 1190 * WinWidth / 1680;
-            int yCoord = 414 * WinHeigth / 1010;
+            int yCoord = 479 * WinHeigth / 1010;
             builder.MoveToElement(FusionApp, xCoord, yCoord).Click().Build().Perform(); // pixel offset from top left
             /*builder.DragAndDropToOffset(FusionApp, 200, 0).Perform();
             Thread.Sleep(TimeSpan.FromSeconds(3));
@@ -96,8 +98,8 @@ namespace SimulationToolTest
 
             //Rotate view
             var builder_app = new Actions(sessionHTT);
-            xCoord = FusionApp.Size.Width / 2 + 5;
-            yCoord = FusionApp.Size.Height / 2 + 5;
+            xCoord = FusionApp.Size.Width / 2 + 30;
+            yCoord = FusionApp.Size.Height / 2 + 20;
             builder_app.MoveToElement(FusionApp, xCoord, yCoord)
                 .Click()
                 .ClickAndHold()
@@ -113,6 +115,12 @@ namespace SimulationToolTest
                 .ClickAndHold()
                 .MoveByOffset(xCoord / 2, 0)
                 .Release()
+                .Build().Perform();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
+            builder_app = new Actions(sessionHTT);
+            builder_app.MoveToElement(FusionApp, xCoord, yCoord)
+                .ContextClick()
                 .Build().Perform();
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
@@ -139,14 +147,14 @@ namespace SimulationToolTest
             Console.WriteLine($"Razlika je: {diff.ToString()}");
             */
 
-            /*
+            
             //Minimize 3D 
             builder = new Actions(sessionHTT);
             xCoord = 1188 * WinWidth / 1680;
             yCoord = 22 * WinHeigth / 1100;
             builder.MoveToElement(FusionApp, xCoord, yCoord).Click().Build().Perform();
             //builder.MoveToElement(FusionApp, 313, 193).ClickAndHold().Build().Perform();
-            */
+            
 
             //IList<WindowsElement> static trt = sessionHTT.FindElements(By.Name("VIBE DINAMICO 4 MEDIDAS 20 seg"));
 
