@@ -34,11 +34,16 @@ namespace SimulationToolTest
             //WindowsElement phantom = sessionHTT.FindElementByName(LastNameSearch);
             phantom.Click();
 
-            DateTime now = DateTime.Now;
+            var builder = new Actions(sessionHTT);
+            int xCoord = 843 * WinWidth / 1680;
+            builder.MoveToElement(phantom, xCoord, 32).Click().Build().Perform();
+
+            /*DateTime now = DateTime.Now;
             WindowsElement phantomLast = sessionHTT.FindElementByName(now.ToString("dd MMM yyyy"));
             var builder = new Actions(sessionHTT);
             int xCoord = 126 * WinWidth / 1680;
-            builder.MoveToElement(phantomLast, xCoord, 32).Click().Build().Perform();
+            builder.MoveToElement(phantomLast, xCoord, 32).Click().Build().Perform();*/
+
 
             Thread.Sleep(200);
             sessionHTT.FindElementByName("Yes").Click();

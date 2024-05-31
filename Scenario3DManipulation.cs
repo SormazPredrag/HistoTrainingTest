@@ -14,6 +14,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Keys = OpenQA.Selenium.Keys;
+using OpenQA.Selenium.Appium.MultiTouch;
 
 namespace SimulationToolTest
 {
@@ -100,10 +102,15 @@ namespace SimulationToolTest
             var builder_app = new Actions(sessionHTT);
             xCoord = FusionApp.Size.Width / 2 + 30;
             yCoord = FusionApp.Size.Height / 2 + 20;
-            builder_app.MoveToElement(FusionApp, xCoord, yCoord)
-                .Click()
-                .ClickAndHold()
+            /*builder_app.MoveToElement(FusionApp, xCoord, yCoord)
+                .Click().KeyDown(Keys.Control).KeyUp(Keys.Control) //to prevent double click
+                .ClickAndHold().Click()
                 .MoveByOffset(0, yCoord / 2)
+                .Release()
+                .Build().Perform(); */
+            builder_app.MoveToElement(FusionApp, xCoord, yCoord)
+                .ClickAndHold()
+                .DragAndDropToOffset(FusionApp, 0, yCoord / 4)
                 .Release()
                 .Build().Perform();
             Thread.Sleep(TimeSpan.FromSeconds(1));
@@ -111,24 +118,25 @@ namespace SimulationToolTest
             //Translate
             builder_app = new Actions(sessionHTT);
             builder_app.MoveToElement(FusionApp, xCoord, yCoord)
-                .Click()
+                .Click().KeyDown(Keys.Control).KeyUp(Keys.Control) //to prevent double click
                 .ClickAndHold()
-                .MoveByOffset(xCoord / 2, 0)
+                .MoveByOffset(xCoord / 4, 0)
                 .Release()
                 .Build().Perform();
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
+            /*//Right mouse click
             builder_app = new Actions(sessionHTT);
             builder_app.MoveToElement(FusionApp, xCoord, yCoord)
                 .ContextClick()
                 .Build().Perform();
             Thread.Sleep(TimeSpan.FromSeconds(1));
+            */
 
             /*//Mouse whell do not work
             var tactions = new TouchActions(sessionHTT); //tactions.scroll(10, 10) tactions.perform()
-            tactions.Scroll(0, 20).Perform();
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-            */
+            tactions.Scroll(0, 100).Build().Perform();
+            Thread.Sleep(TimeSpan.FromSeconds(1)); */
 
             // Take a screenshot
             //Iz nekog razloga ne mozemo uzeti screenshot Fusion App elementa pa je treba iseci iz cele slike
@@ -140,12 +148,23 @@ namespace SimulationToolTest
             Mat cropped_1 = new Mat(pic, rectangle);
             cropped_1.Save(screenFileName_1);
 
-            /*//Razlika
+            /*//Difference
             Mat ResultImage = new Mat();
             CvInvoke.AbsDiff(cropped, cropped_1, ResultImage);
             int diff = CvInvoke.CountNonZero(ResultImage);
-            Console.WriteLine($"Razlika je: {diff.ToString()}");
+            Console.WriteLine($"Difference is: {diff.ToString()}");
             */
+
+
+            //Sidebar
+            // "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar"
+            //ResetButton: "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.viewResetButton"
+            WindowsElement couplingKitButton = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.couplingKitButton");
+            couplingKitButton.Click();
+
+            WindowsElement transducerButton = sessionHTT.FindElementByAccessibilityId("MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.transducerButton");
+            transducerButton.Click();
+
 
             //Minimize 3D 
             builder = new Actions(sessionHTT);
@@ -153,14 +172,11 @@ namespace SimulationToolTest
             yCoord = 22 * WinHeigth / 1100;
             builder.MoveToElement(FusionApp, xCoord, yCoord).Click().Build().Perform();
             //builder.MoveToElement(FusionApp, 313, 193).ClickAndHold().Build().Perform();
-            
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
 
             //IList<WindowsElement> static trt = sessionHTT.FindElements(By.Name("VIBE DINAMICO 4 MEDIDAS 20 seg"));
 
-
-            //Sidebar
-            // "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar"
-            //ResetButton: "MainWindow.centralwidget.stackedWidget.patientRecordPage.displayAndControlsWidget.displayStackedWidget.displayPageContainer.viewSidebar.viewResetButton"
 
             Thread.Sleep(TimeSpan.FromSeconds(4));
             app.ShutDownMenuClick();
