@@ -147,7 +147,6 @@ namespace SimulationToolTest
             Console.WriteLine($"Razlika je: {diff.ToString()}");
             */
 
-            
             //Minimize 3D 
             builder = new Actions(sessionHTT);
             xCoord = 1188 * WinWidth / 1680;
